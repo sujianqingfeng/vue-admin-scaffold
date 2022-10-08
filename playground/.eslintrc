@@ -1,0 +1,4 @@
+{
+  "root": true,
+  "extends": "@sujian/vue3-ts"
+}

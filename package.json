@@ -1,0 +1,30 @@
+{
+  "name": "@sujian/vue-admin-scaffold",
+  "version": "1.0.0",
+  "description": "",
+  "author": "hens",
+  "license": "MIT",
+  "keywords": [],
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:style": "stylelint .",
+    "lint:style-fix": "stylelint  . --fix",
+    "play": "vite playground --open"
+  },
+  "dependencies": {
+    "element-plus": "^2.2.17",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@sujian/eslint-config-vue3-ts": "^0.0.20",
+    "@sujian/stylelint-config": "^0.0.1",
+    "@types/node": "^18.8.3",
+    "eslint": "^8.25.0",
+    "postcss": "^8.4.17",
+    "sass": "^1.54.9",
+    "stylelint": "^14.13.0",
+    "typescript": "^4.8.4",
+    "vite": "^3.1.0"
+  }
+}

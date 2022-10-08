@@ -1,0 +1,22 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true,
+    "source.fixAll.eslint": true
+  },
+  "stylelint.validate": ["css", "scss", "vue"],
+  "prettier.enable": false,
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
+    "json",
+    "jsonc",
+    "json5"
+  ],
+  "cSpell.words": [
+    "stylelint",
+    "sujian"
+  ]
+}
