@@ -6,6 +6,7 @@ importers:
     specifiers:
       '@sujian/eslint-config-vue3-ts': ^0.0.20
       '@sujian/stylelint-config': ^0.0.1
+      '@sujian/utils': ^1.0.12
       '@types/node': ^18.8.3
       deepmerge: ^4.2.2
       element-plus: ^2.2.17
@@ -17,6 +18,7 @@ importers:
       vite: ^3.1.0
       vue: ^3.2.37
     dependencies:
+      '@sujian/utils': 1.0.12
       deepmerge: 4.2.2
       element-plus: 2.2.17_vue@3.2.40
       vue: 3.2.40
@@ -470,6 +472,13 @@ packages:
       - postcss
       - supports-color
     dev: true
+
+  /@sujian/utils/1.0.12:
+    resolution: {integrity: sha512-cZ/+mwlxbyyQjmgnPAppmVitUkIdTb9zQ18RXMot11bp4BzGnqwHDQcrNeUqP/aSGh/jz9CvZWf+WM0OREaAUA==}
+    dependencies:
+      currency.js: 2.0.4
+      dayjs: 1.11.5
+    dev: false
 
   /@sxzz/popperjs-es/2.11.7:
     resolution: {integrity: sha512-Ccy0NlLkzr0Ex2FKvh2X+OyERHXJ88XJ1MXtsI9y9fGexlaXaVTPzBCRBwIxFkORuOb+uBqeu+RqnpgYTEZRUQ==}
@@ -1042,6 +1051,11 @@ packages:
 
   /csstype/2.6.21:
     resolution: {integrity: sha512-Z1PhmomIfypOpoMjRQB70jfvy/wxT50qW08YXO5lMIJkrdq4yOTR+AW7FqutScmB9NkLwxo+jU+kZLbofZZq/w==}
+    dev: false
+
+  /currency.js/2.0.4:
+    resolution: {integrity: sha512-6/OplJYgJ0RUlli74d93HJ/OsKVBi8lB1+Z6eJYS1YZzBuIp4qKKHpJ7ad+GvTlWmLR/hLJOWTykN5Nm8NJ7+w==}
+    engines: {node: '>=4'}
     dev: false
 
   /dayjs/1.11.5:

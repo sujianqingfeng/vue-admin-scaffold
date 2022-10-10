@@ -1,19 +1,30 @@
+type Value =  string | number | boolean | null
+
+export interface Option {
+  label: string,
+  value?: Value
+}
+
 export interface ScaffoldQueryLayout {
   span?: number
 }
 
-type ScaffoldQuerySelectForm = {
+export type ScaffoldQuerySelectForm = {
   type: 'select'
   key: string
-  options: string
+  value?: string
+  options?: Option[] | (() => Promise<Option[]>)
 }  
 
 type ScaffoldQueryInputForm = {
   type: 'input'
   key:  string
+  value?: string
 }
 
-type ScaffoldQueryForm = ScaffoldQuerySelectForm | ScaffoldQueryInputForm
+export type ScaffoldQueryForm = ScaffoldQuerySelectForm | ScaffoldQueryInputForm
+
+export type ScaffoldQueryFormTypes  = ScaffoldQueryForm['type'] 
 
 export interface ScaffoldQuery {
   layout?: ScaffoldQueryLayout
@@ -21,5 +32,5 @@ export interface ScaffoldQuery {
 }
 
 export interface ScaffoldSchema {
-  query?: ScaffoldQuery
+  query: ScaffoldQuery
 }

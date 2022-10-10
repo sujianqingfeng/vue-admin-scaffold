@@ -14,4 +14,4 @@ export const defineScaffoldConfig = (_config: ScaffoldSchema) => {
   config = deepmerge(defaultConfig, _config) 
 }
 
-export let config = defaultConfig
+export let config: ScaffoldSchema = defaultConfig
