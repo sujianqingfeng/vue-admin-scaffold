@@ -3,6 +3,7 @@
     "target": "esnext",
     "module": "esnext",
     "lib": ["esnext", "DOM"],
+    "outDir": "dist",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
@@ -11,7 +12,10 @@
     "strictNullChecks": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+    "rootDir": ".",
+    "baseUrl": ".",
+    "composite": true
   },
   "exclude": [
     "dist",
