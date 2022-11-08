@@ -1,7 +1,7 @@
 import deepmerge from 'deepmerge'
 import type { ScaffoldSchema } from './types'
 
-const defaultConfig: ScaffoldSchema = {
+export const defaultConfig: ScaffoldSchema = {
   query: {
     layout: {
       span: 1

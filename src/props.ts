@@ -1,3 +1,6 @@
+import { PropType } from 'vue'
+import { defaultConfig } from './config'
+
 type Value =  string | number | boolean | null
 
 export interface Option {
@@ -33,4 +36,11 @@ export interface ScaffoldQuery {
 
 export interface ScaffoldSchema {
   query: ScaffoldQuery
+}
+
+export const props = {
+  schema: {
+    type: Object as PropType<ScaffoldSchema>,
+    default: defaultConfig
+  }
 }

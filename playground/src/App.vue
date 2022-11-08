@@ -1,5 +1,16 @@
 <script setup lang="ts">
-import { Scaffold } from '@sujian/vue-admin-scaffold'
+import { Scaffold, ScaffoldSchema } from '@sujian/vue-admin-scaffold'
+
+const schema: ScaffoldSchema = {
+  query: {
+    forms: [
+      {
+        type: 'input',
+        key: 'name',
+      }
+    ]
+  }
+}
 </script>
 
 <template>
@@ -8,7 +19,7 @@ import { Scaffold } from '@sujian/vue-admin-scaffold'
       vue-admin-scaffold
     </header>
     <div class="scaffold-container">
-      <scaffold />
+      <scaffold :schema="schema" />
     </div>
   </div>
 </template>

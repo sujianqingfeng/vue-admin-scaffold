@@ -28,6 +28,8 @@
     "@types/gulp-sass": "^5.0.0",
     "@types/node": "^18.8.3",
     "@vitejs/plugin-vue": "^3.1.0",
+    "@vitejs/plugin-vue-jsx": "^2.1.1",
+    "debug": "^4.3.4",
     "esbuild": "^0.15.11",
     "eslint": "^8.25.0",
     "fast-glob": "^3.2.12",

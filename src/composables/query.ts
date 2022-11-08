@@ -1,9 +1,18 @@
-import type { ScaffoldQuery, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryLayout, ScaffoldQuerySelectForm } from '../types'
-import { config } from '../config'
-import { ref } from 'vue'
+import { inject, provide, ref } from 'vue'
+import type { InjectionKey, Ref } from 'vue'
+import type { ScaffoldQuery, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryLayout, ScaffoldQuerySelectForm } from '../props'
 import { isArray, isFunction, isString } from '@sujian/utils'
+import { config } from '../config'
 
-const formatLayout = (layout: ScaffoldQueryLayout) => {
+type RequiredScaffoldQueryLayout = Required<ScaffoldQueryLayout>
+
+type InjectQuery = {
+  layout: Ref<RequiredScaffoldQueryLayout>
+  formData: Ref<Record<string, any>>
+  asyncData: Ref<Record<string, any>>
+} 
+
+const formatLayout = (layout: ScaffoldQueryLayout): RequiredScaffoldQueryLayout   => {
   const { query: defaultQuery } = config
   const mergeLayout = { ...defaultQuery.layout, ...layout }
   return mergeLayout
@@ -58,14 +67,19 @@ const useFetchAsyncData = (forms: ScaffoldQueryForm[]) => {
   return { asyncData }
 }
 
-export const useQuery = (query: ScaffoldQuery) => {
+const QUERY_KEY: InjectionKey<InjectQuery> = Symbol('query-layout-key') 
 
-  const useFormatQuery = () => {
-    const layout = ref(formatLayout(query.layout || {})) 
-    const formData = ref(generateFormData(query.forms || []))
-    const { asyncData } = useFetchAsyncData(query.forms || [])
-    return { layout, formData, asyncData  }
-  }
+export const useProvideScaffoldQuery = (query: ScaffoldQuery) => {
+  const layout = ref(formatLayout(query.layout || {})) 
+  const formData = ref(generateFormData(query.forms || []))
+  const { asyncData } = useFetchAsyncData(query.forms || [])
 
-  return [useFormatQuery]
+  const injectData: InjectQuery = { layout, formData, asyncData  }
+
+  provide(QUERY_KEY, injectData)
+  return injectData
+}
+
+export const useScaffoldQuery = () => {
+  return inject(QUERY_KEY)!
 }
