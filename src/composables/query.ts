@@ -10,11 +10,12 @@ type InjectQuery = {
   layout: Ref<RequiredScaffoldQueryLayout>
   formData: Ref<Record<string, any>>
   asyncData: Ref<Record<string, any>>
+  forms: ScaffoldQueryForm[]
 } 
 
 const formatLayout = (layout: ScaffoldQueryLayout): RequiredScaffoldQueryLayout   => {
   const { query: defaultQuery } = config
-  const mergeLayout = { ...defaultQuery.layout, ...layout }
+  const mergeLayout = { ...defaultQuery.layout, ...layout } as Required<ScaffoldQueryLayout >
   return mergeLayout
 }
 
@@ -71,10 +72,12 @@ const QUERY_KEY: InjectionKey<InjectQuery> = Symbol('query-layout-key')
 
 export const useProvideScaffoldQuery = (query: ScaffoldQuery) => {
   const layout = ref(formatLayout(query.layout || {})) 
-  const formData = ref(generateFormData(query.forms || []))
-  const { asyncData } = useFetchAsyncData(query.forms || [])
 
-  const injectData: InjectQuery = { layout, formData, asyncData  }
+  const forms =  query.forms || []
+  const formData = ref(generateFormData(forms))
+  const { asyncData } = useFetchAsyncData(forms)
+
+  const injectData: InjectQuery = { layout, formData, asyncData, forms }
 
   provide(QUERY_KEY, injectData)
   return injectData

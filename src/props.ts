@@ -1,5 +1,6 @@
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defaultConfig } from './config'
+import type { UiRender } from './renders/types'
 
 type Value =  string | number | boolean | null
 
@@ -12,17 +13,19 @@ export interface ScaffoldQueryLayout {
   span?: number
 }
 
-export type ScaffoldQuerySelectForm = {
-  type: 'select'
+type ScaffoldQueryCommonForm = {
   key: string
+  label: string
   value?: string
+} 
+
+export type ScaffoldQuerySelectForm = ScaffoldQueryCommonForm & {
+  type: 'select'
   options?: Option[] | (() => Promise<Option[]>)
 }  
 
-type ScaffoldQueryInputForm = {
+type ScaffoldQueryInputForm = ScaffoldQueryCommonForm  & {
   type: 'input'
-  key:  string
-  value?: string
 }
 
 export type ScaffoldQueryForm = ScaffoldQuerySelectForm | ScaffoldQueryInputForm
@@ -35,6 +38,7 @@ export interface ScaffoldQuery {
 }
 
 export interface ScaffoldSchema {
+  uiRender?: UiRender
   query: ScaffoldQuery
 }
 

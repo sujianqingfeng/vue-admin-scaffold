@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { Scaffold, ScaffoldSchema } from '@sujian/vue-admin-scaffold'
+import '@sujian/vue-admin-scaffold/style.scss'
 
 const schema: ScaffoldSchema = {
   query: {
     forms: [
       {
+        label: '输入',
         type: 'input',
         key: 'name',
       }

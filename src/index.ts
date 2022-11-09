@@ -1,5 +1,5 @@
 import Scaffold from './Scaffold'
-import { ScaffoldSchema } from './props'
+import type { ScaffoldSchema } from './props'
 
 export {
   Scaffold,

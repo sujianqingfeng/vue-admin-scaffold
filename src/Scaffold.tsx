@@ -10,8 +10,8 @@ export default defineComponent({
   setup(props) {
     useProvideScaffoldQuery(props.schema.query)
 
-    return () => <>
+    return () => <div class='scaffold-container'>
       <ScaffoldQuery></ScaffoldQuery>
-    </>
+    </div> 
   }
 }) 

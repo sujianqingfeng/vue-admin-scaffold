@@ -1,7 +1,9 @@
 import deepmerge from 'deepmerge'
-import type { ScaffoldSchema } from './types'
+import type { ScaffoldSchema } from './props'
+import { createElementUiRender } from './renders'
 
-export const defaultConfig: ScaffoldSchema = {
+export const defaultConfig: Required<ScaffoldSchema> = {
+  uiRender: createElementUiRender(),
   query: {
     layout: {
       span: 1
@@ -14,4 +16,4 @@ export const defineScaffoldConfig = (_config: ScaffoldSchema) => {
   config = deepmerge(defaultConfig, _config) 
 }
 
-export let config: ScaffoldSchema = defaultConfig
+export let config: Required<ScaffoldSchema> = defaultConfig
