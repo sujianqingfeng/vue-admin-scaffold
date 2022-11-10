@@ -6,9 +6,22 @@ const schema: ScaffoldSchema = {
   query: {
     forms: [
       {
+        __type__: 'input',
         label: '输入',
-        type: 'input',
         key: 'name',
+      },
+      {
+        __type__: 'select',
+        label: '选择',
+        key: 'select',
+        options: [{ label: '选项1', value: '1' },],
+      },
+      {
+        __type__: 'select',
+        label: '选择',
+        key: 'select1',
+        when: (data) => data.select,
+        options: [{ label: '选项1', value: '1' },],
       }
     ]
   }

@@ -1,10 +1,12 @@
-import { inject, provide, ref } from 'vue'
+import { inject, provide, ref, watch } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
-import type { ScaffoldQuery, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryLayout, ScaffoldQuerySelectForm } from '../props'
+import type { FormData, ScaffoldQuery, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryLayout, ScaffoldQuerySelectForm } from '../types'
 import { isArray, isFunction, isString } from '@sujian/utils'
 import { config } from '../config'
+import { generateKey } from '../utils'
 
 type RequiredScaffoldQueryLayout = Required<ScaffoldQueryLayout>
+type WithRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
 
 type InjectQuery = {
   layout: Ref<RequiredScaffoldQueryLayout>
@@ -20,7 +22,7 @@ const formatLayout = (layout: ScaffoldQueryLayout): RequiredScaffoldQueryLayout 
 }
 
 const generateFormData = (forms: ScaffoldQueryForm[]) => {
-  const data: Record<string, any> = {}
+  const data: FormData = {}
 
   const batchGenerate = (keys: string[], values: any[]) => {
     const n = keys.length
@@ -43,26 +45,48 @@ const generateFormData = (forms: ScaffoldQueryForm[]) => {
   return data
 }
 
-const useFetchAsyncData = (forms: ScaffoldQueryForm[]) => {
+const useFetchAsyncData = (forms: ScaffoldQueryForm[], formData: Ref<FormData>) => {
   const asyncData = ref<Record<string, any>>({})
   
-  const asyncTypeMap: Record<Exclude<ScaffoldQueryFormTypes, 'input'>, (form: ScaffoldQueryForm) => void > = {
-    select: async (form: ScaffoldQueryForm) => {
-      const { key, options } = form as ScaffoldQuerySelectForm
-      if (!options) {
-        asyncData.value[key] = []
-      } else if (isArray(options)) {
-        asyncData.value[key] = options
-      } else if (isFunction(options)) {
-        asyncData.value[key] = await options() 
-      }
-    },
+  const generateOptions = async (form: ScaffoldQueryForm) => {
+    const { key, options } = form as ScaffoldQuerySelectForm
+    const newKey = generateKey(key)
+
+    if (!options) {
+      asyncData.value[newKey ] = []
+    } else if (isArray(options)) {
+      asyncData.value[newKey] = options
+    } else if (isFunction(options)) {
+      asyncData.value[newKey] = await options(formData.value) 
+    }
   }
 
-  const filterForms = forms.filter(form => Object.keys(asyncTypeMap).includes(form.type) )
+  const asyncTypeMap: Record<Exclude<ScaffoldQueryFormTypes, 'input'>, (form: ScaffoldQueryForm) => void > = {
+    select: generateOptions
+  }
 
-  filterForms.forEach(form => {
-    asyncTypeMap[form.type as Exclude<ScaffoldQueryFormTypes, 'input'>](form)
+  const fetchOptions = (list: ScaffoldQuerySelectForm[]) => {
+    list.forEach(form => {
+      asyncTypeMap[form.__type__](form)
+    })
+  }
+
+  const hasWhen = (form: ScaffoldQuerySelectForm): form is WithRequired<ScaffoldQuerySelectForm, 'when'> => !!form?.when
+  const isSelect = (form: ScaffoldQueryForm): form is ScaffoldQuerySelectForm => Object.keys(asyncTypeMap).includes(form.__type__) 
+
+  const getFilterSelectForms = () => forms.filter(isSelect)
+
+  const selectForms = getFilterSelectForms () 
+  const asyncForms = selectForms.filter(form => !hasWhen(form))
+
+  // initial
+  fetchOptions(asyncForms)
+
+  // when
+  watch(formData, (val) => {
+    const whenForms = selectForms.filter(hasWhen)
+    const triggerForms = whenForms.filter(form => form.when(val))
+    fetchOptions(triggerForms)
   })
 
   return { asyncData }
@@ -75,7 +99,7 @@ export const useProvideScaffoldQuery = (query: ScaffoldQuery) => {
 
   const forms =  query.forms || []
   const formData = ref(generateFormData(forms))
-  const { asyncData } = useFetchAsyncData(forms)
+  const { asyncData } = useFetchAsyncData(forms, formData)
 
   const injectData: InjectQuery = { layout, formData, asyncData, forms }
 

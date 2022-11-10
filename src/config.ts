@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge'
-import type { ScaffoldSchema } from './props'
+import type { ScaffoldSchema } from './types'
 import { createElementUiRender } from './renders'
 
 export const defaultConfig: Required<ScaffoldSchema> = {

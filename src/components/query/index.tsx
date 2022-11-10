@@ -1,22 +1,23 @@
 import { useScaffoldQuery } from '../../composables/query'
 import { defineComponent } from 'vue'
 import createDebug from 'debug'
-import { config } from '../../config'
+import { renderFormItem  } from './render'
 
 const debug  = createDebug('scaffold:components:query')
-
-const { uiRender } = config
 
 export default defineComponent({
   name: 'ScaffoldQuery',
   setup() {
-    const { layout, forms } = useScaffoldQuery()
+    const { layout, forms, asyncData } = useScaffoldQuery()
     debug('layout', layout)
 
     const renderRows = () => forms.map(form => {
       const { label } = form
       return <div>
-        <div>{label}</div>
+        <div class='label'>{label}</div>
+        <div class='form-item'>
+          {renderFormItem(form)}
+        </div>
       </div>
     })
 
@@ -25,6 +26,7 @@ export default defineComponent({
         <div class="forms">
           <div class="row">
             {renderRows()}
+            { JSON.stringify(asyncData.value) }
           </div>
         </div>
         <div class="actions">
