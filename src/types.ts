@@ -21,11 +21,11 @@ type ScaffoldQueryCommonForm = {
 
 export type ScaffoldQuerySelectForm = ScaffoldQueryCommonForm & {
   __type__: 'select'
-  when?: (formData: FormData) => boolean
+  when?: (formData: FormData, oldFormData: FormData) => boolean
   options?: Option[] | ((formData: FormData) => Promise<Option[]>)
 }  
 
-type ScaffoldQueryInputForm = ScaffoldQueryCommonForm  & {
+export type ScaffoldQueryInputForm = ScaffoldQueryCommonForm  & {
   __type__: 'input'
 }
 

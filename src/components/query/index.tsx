@@ -8,7 +8,7 @@ const debug  = createDebug('scaffold:components:query')
 export default defineComponent({
   name: 'ScaffoldQuery',
   setup() {
-    const { layout, forms, asyncData } = useScaffoldQuery()
+    const { layout, forms, asyncData, formData, } = useScaffoldQuery()
     debug('layout', layout)
 
     const renderRows = () => forms.map(form => {
@@ -16,7 +16,7 @@ export default defineComponent({
       return <div>
         <div class='label'>{label}</div>
         <div class='form-item'>
-          {renderFormItem(form)}
+          {renderFormItem(form, { asyncData, formData })}
         </div>
       </div>
     })

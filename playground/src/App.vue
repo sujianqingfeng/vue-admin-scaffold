@@ -20,7 +20,10 @@ const schema: ScaffoldSchema = {
         __type__: 'select',
         label: '选择',
         key: 'select1',
-        when: (data) => data.select,
+        when: (data, oldData) => {
+          console.log('when', data, oldData)
+          return data.select !== oldData.select
+        },
         options: [{ label: '选项1', value: '1' },],
       }
     ]

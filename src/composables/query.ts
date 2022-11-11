@@ -8,10 +8,13 @@ import { generateKey } from '../utils'
 type RequiredScaffoldQueryLayout = Required<ScaffoldQueryLayout>
 type WithRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
 
+export type FormDataRef = Ref<Record<string, any>>
+export type AsyncDataRef = Ref<Record<string, any>>
+
 type InjectQuery = {
   layout: Ref<RequiredScaffoldQueryLayout>
-  formData: Ref<Record<string, any>>
-  asyncData: Ref<Record<string, any>>
+  formData: FormDataRef 
+  asyncData: AsyncDataRef  
   forms: ScaffoldQueryForm[]
 } 
 
@@ -83,11 +86,14 @@ const useFetchAsyncData = (forms: ScaffoldQueryForm[], formData: Ref<FormData>) 
   fetchOptions(asyncForms)
 
   // when
-  watch(formData, (val) => {
+  watch(formData, (val, oldVal) => {
+    console.log('watch', val, oldVal)
     const whenForms = selectForms.filter(hasWhen)
-    const triggerForms = whenForms.filter(form => form.when(val))
+    const triggerForms = whenForms.filter(form => form.when(val, oldVal))
+    console.log('triggerForms', triggerForms)
+    
     fetchOptions(triggerForms)
-  })
+  }, { deep: true })
 
   return { asyncData }
 }
