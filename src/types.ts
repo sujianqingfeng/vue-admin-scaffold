@@ -1,5 +1,7 @@
 import type { UiRender } from './renders/types'
 
+export type WithRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
+
 type Value =  string | number | boolean | null
 
 export interface Option {
@@ -14,19 +16,21 @@ export interface ScaffoldQueryLayout {
 }
 
 type ScaffoldQueryCommonForm = {
-  key: string
   label: string
-  value?: string
+  value?: any
+  [index: string]: any
 } 
 
 export type ScaffoldQuerySelectForm = ScaffoldQueryCommonForm & {
   __type__: 'select'
-  when?: (formData: FormData, oldFormData: FormData) => boolean
+  key: string
+  autoFetch?: boolean
   options?: Option[] | ((formData: FormData) => Promise<Option[]>)
 }  
 
 export type ScaffoldQueryInputForm = ScaffoldQueryCommonForm  & {
   __type__: 'input'
+  key: string
 }
 
 export type ScaffoldQueryForm = ScaffoldQuerySelectForm | ScaffoldQueryInputForm
@@ -41,4 +45,8 @@ export interface ScaffoldQuery {
 export interface ScaffoldSchema {
   uiRender?: UiRender
   query: ScaffoldQuery
+}
+
+export type ScaffoldInstance = {
+  fetchAsyncData: (keys: string[]) => void
 }

@@ -1,7 +1,8 @@
 import Scaffold from './Scaffold'
-import type { ScaffoldSchema } from './types'
+import type { ScaffoldSchema, ScaffoldInstance  } from './types'
 
 export {
   Scaffold,
-  ScaffoldSchema
+  ScaffoldSchema,
+  ScaffoldInstance  
 }

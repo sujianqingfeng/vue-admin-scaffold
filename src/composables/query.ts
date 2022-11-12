@@ -6,7 +6,6 @@ import { config } from '../config'
 import { generateKey } from '../utils'
 
 type RequiredScaffoldQueryLayout = Required<ScaffoldQueryLayout>
-type WithRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
 
 export type FormDataRef = Ref<Record<string, any>>
 export type AsyncDataRef = Ref<Record<string, any>>
@@ -20,8 +19,22 @@ type InjectQuery = {
 
 const formatLayout = (layout: ScaffoldQueryLayout): RequiredScaffoldQueryLayout   => {
   const { query: defaultQuery } = config
-  const mergeLayout = { ...defaultQuery.layout, ...layout } as Required<ScaffoldQueryLayout >
+  const mergeLayout = { ...defaultQuery.layout, ...layout } as Required<ScaffoldQueryLayout>
   return mergeLayout
+}
+
+const formatForms = (forms: ScaffoldQueryForm[], layout: Ref<Required<ScaffoldQueryLayout>>) => {
+  const data: ScaffoldQueryForm[] = []
+
+  forms.forEach(form => {
+    const { label = 'no label text' } = form
+    data.push({
+      span: layout.value.span,
+      ...form,
+      label
+    })
+  })
+  return data
 }
 
 const generateFormData = (forms: ScaffoldQueryForm[]) => {
@@ -48,6 +61,7 @@ const generateFormData = (forms: ScaffoldQueryForm[]) => {
   return data
 }
 
+// async data
 const useFetchAsyncData = (forms: ScaffoldQueryForm[], formData: Ref<FormData>) => {
   const asyncData = ref<Record<string, any>>({})
   
@@ -74,28 +88,23 @@ const useFetchAsyncData = (forms: ScaffoldQueryForm[], formData: Ref<FormData>) 
     })
   }
 
-  const hasWhen = (form: ScaffoldQuerySelectForm): form is WithRequired<ScaffoldQuerySelectForm, 'when'> => !!form?.when
   const isSelect = (form: ScaffoldQueryForm): form is ScaffoldQuerySelectForm => Object.keys(asyncTypeMap).includes(form.__type__) 
+  const isAutoFetch = (form: ScaffoldQuerySelectForm) => form.autoFetch === undefined ? true : form.autoFetch 
 
   const getFilterSelectForms = () => forms.filter(isSelect)
 
-  const selectForms = getFilterSelectForms () 
-  const asyncForms = selectForms.filter(form => !hasWhen(form))
+  const selectForms = getFilterSelectForms() 
+  const asyncForms = selectForms.filter(isAutoFetch)
 
   // initial
   fetchOptions(asyncForms)
 
-  // when
-  watch(formData, (val, oldVal) => {
-    console.log('watch', val, oldVal)
-    const whenForms = selectForms.filter(hasWhen)
-    const triggerForms = whenForms.filter(form => form.when(val, oldVal))
-    console.log('triggerForms', triggerForms)
-    
-    fetchOptions(triggerForms)
-  }, { deep: true })
+  const fetchAsyncData = (keys: string[]) => {
+    const filterForms =  selectForms.filter(form => keys.some(key => generateKey(key) === generateKey(form.key)))
+    fetchOptions(filterForms)
+  }
 
-  return { asyncData }
+  return { asyncData, fetchAsyncData }
 }
 
 const QUERY_KEY: InjectionKey<InjectQuery> = Symbol('query-layout-key') 
@@ -103,14 +112,16 @@ const QUERY_KEY: InjectionKey<InjectQuery> = Symbol('query-layout-key')
 export const useProvideScaffoldQuery = (query: ScaffoldQuery) => {
   const layout = ref(formatLayout(query.layout || {})) 
 
-  const forms =  query.forms || []
+  const forms = query.forms || []
   const formData = ref(generateFormData(forms))
-  const { asyncData } = useFetchAsyncData(forms, formData)
+  const { asyncData, fetchAsyncData } = useFetchAsyncData(forms, formData)
 
-  const injectData: InjectQuery = { layout, formData, asyncData, forms }
+  const finalForms = formatForms(forms, layout)
+
+  const injectData: InjectQuery = { layout, formData, asyncData, forms: finalForms  }
 
   provide(QUERY_KEY, injectData)
-  return injectData
+  return { ...injectData, fetchAsyncData }
 }
 
 export const useScaffoldQuery = () => {

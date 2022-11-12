@@ -8,11 +8,16 @@ export default defineComponent({
   name: 'Scaffold',
   props,
   setup(props) {
-    const { formData } = useProvideScaffoldQuery(props.schema.query)
-
-    return () => <div class='scaffold-container'>
-      {JSON.stringify(formData.value)}
+    const { formData, fetchAsyncData } = useProvideScaffoldQuery(props.schema.query)
+    return {
+      formData,
+      fetchAsyncData 
+    }
+  },
+  render() {
+    return <div class='scaffold-container'>
+      {JSON.stringify(this.formData)}
       <ScaffoldQuery></ScaffoldQuery>
-    </div> 
+    </div>
   }
 }) 

@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { Scaffold, ScaffoldSchema } from '@sujian/vue-admin-scaffold'
+import type { ScaffoldInstance } from '@sujian/vue-admin-scaffold'
+
 import '@sujian/vue-admin-scaffold/style.scss'
+const scaffoldRef = ref<ScaffoldInstance>()
 
 const schema: ScaffoldSchema = {
   query: {
@@ -9,26 +13,34 @@ const schema: ScaffoldSchema = {
         __type__: 'input',
         label: '输入',
         key: 'name',
+        onInput: (val: string) => {
+          console.log('onInput', val)
+        }
       },
       {
         __type__: 'select',
         label: '选择',
         key: 'select',
+        onChange: (val: string) => {
+          console.log('onSelectChange', val)
+          scaffoldRef.value?.fetchAsyncData(['select1'])
+        },
         options: [{ label: '选项1', value: '1' },],
       },
       {
         __type__: 'select',
         label: '选择',
         key: 'select1',
-        when: (data, oldData) => {
-          console.log('when', data, oldData)
-          return data.select !== oldData.select
-        },
+        autoFetch: false,
         options: [{ label: '选项1', value: '1' },],
       }
     ]
   }
 }
+
+onMounted(() => {
+  console.log('scaffoldRef', scaffoldRef.value)
+})
 </script>
 
 <template>
@@ -37,7 +49,7 @@ const schema: ScaffoldSchema = {
       vue-admin-scaffold
     </header>
     <div class="scaffold-container">
-      <scaffold :schema="schema" />
+      <scaffold ref="scaffoldRef" :schema="schema" />
     </div>
   </div>
 </template>

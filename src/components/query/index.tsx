@@ -11,9 +11,9 @@ export default defineComponent({
     const { layout, forms, asyncData, formData, } = useScaffoldQuery()
     debug('layout', layout)
 
-    const renderRows = () => forms.map(form => {
+    const renderCols = () => forms.map(form => {
       const { label } = form
-      return <div>
+      return <div class='col'>
         <div class='label'>{label}</div>
         <div class='form-item'>
           {renderFormItem(form, { asyncData, formData })}
@@ -25,7 +25,7 @@ export default defineComponent({
       <div class='main-container'>
         <div class="forms">
           <div class="row">
-            {renderRows()}
+            {renderCols()}
             { JSON.stringify(asyncData.value) }
           </div>
         </div>
