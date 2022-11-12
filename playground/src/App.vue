@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { Scaffold, ScaffoldSchema } from '@sujian/vue-admin-scaffold'
 import type { ScaffoldInstance } from '@sujian/vue-admin-scaffold'
+import Test from './Test'
 
 import '@sujian/vue-admin-scaffold/style.scss'
 const scaffoldRef = ref<ScaffoldInstance>()
@@ -47,6 +48,7 @@ onMounted(() => {
   <div class="app-container">
     <header class="app-header">
       vue-admin-scaffold
+      <test />
     </header>
     <div class="scaffold-container">
       <scaffold ref="scaffoldRef" :schema="schema" />

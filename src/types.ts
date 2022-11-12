@@ -14,6 +14,7 @@ export type FormData<T = any> = Record<string, T>
 export interface ScaffoldQueryLayout {
   span?: number
 }
+export type RequiredScaffoldQueryLayout = Required<ScaffoldQueryLayout>
 
 type ScaffoldQueryCommonForm = {
   label: string
@@ -37,9 +38,22 @@ export type ScaffoldQueryForm = ScaffoldQuerySelectForm | ScaffoldQueryInputForm
 
 export type ScaffoldQueryFormTypes  = ScaffoldQueryForm['__type__'] 
 
+export type ScaffoldQueryActon = {
+  hasReset?: boolean
+  hasQuery?: boolean
+  resetText?: string
+  queryText?: string
+  preventReset?: boolean
+  resetAutoFetch?: boolean
+  onReset?: () => void
+  onQuery?: () => void
+} 
+export type RequiredScaffoldQueryAction = Required<ScaffoldQueryActon>
+
 export interface ScaffoldQuery {
   layout?: ScaffoldQueryLayout
   forms?: ScaffoldQueryForm[]
+  action?: ScaffoldQueryActon
 }
 
 export interface ScaffoldSchema {

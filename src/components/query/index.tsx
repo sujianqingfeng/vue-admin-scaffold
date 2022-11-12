@@ -1,14 +1,14 @@
 import { useScaffoldQuery } from '../../composables/query'
 import { defineComponent } from 'vue'
 import createDebug from 'debug'
-import { renderFormItem  } from './render'
+import { renderFormItem, renderQuery, renderReset  } from './render'
 
 const debug  = createDebug('scaffold:components:query')
 
 export default defineComponent({
   name: 'ScaffoldQuery',
   setup() {
-    const { layout, forms, asyncData, formData, } = useScaffoldQuery()
+    const { layout, forms, asyncData, formData, action } = useScaffoldQuery()
     debug('layout', layout)
 
     const renderCols = () => forms.map(form => {
@@ -30,7 +30,8 @@ export default defineComponent({
           </div>
         </div>
         <div class="actions">
-          action
+          {renderReset(action.value)}
+          {renderQuery(action.value)}
         </div>
       </div>
       <div class="more-container">

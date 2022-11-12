@@ -4,3 +4,8 @@ export type Context = {
   asyncData: AsyncDataRef
   formData: FormDataRef
 }
+
+export type ActionProps = {
+  onClick: () => void
+  class: string
+}
