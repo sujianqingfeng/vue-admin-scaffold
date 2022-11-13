@@ -21,6 +21,23 @@ export const defaultConfig: Required<ScaffoldSchema> = {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       onQuery: () => {},
     }
+  },
+  pagination: {
+    page: 1,
+    pageSize: 10,
+    total: 0,
+    hideOnSinglePage: true,
+    pageSizes: [10, 20, 50, 100]
+  },
+  request: {
+    auto: true,
+    apiFn: () => Promise.resolve({ total: 0, list: [] }),
+    transform: (val) => val,
+    adapter: (val) => val,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onSuccess: () => {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onError: () => {}
   }
 }
 

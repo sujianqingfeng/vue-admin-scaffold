@@ -56,9 +56,35 @@ export interface ScaffoldQuery {
   action?: ScaffoldQueryActon
 }
 
+export type DataSource = {
+  list: unknown[]
+  total: number
+}
+
+type Transform = (data: Pick<ScaffoldPagination, 'page' | 'pageSize'>) => any
+
+export type ScaffoldRequest = {
+  auto?: boolean
+  apiFn: (data: any) => Promise<DataSource>
+  transform?: Transform
+  adapter?: (data: any) => DataSource 
+  onSuccess?: (data: any, origialData: any) => void
+  onError?: (err: Error) => void
+}
+
+export type ScaffoldPagination = {
+  page: number
+  pageSize: number
+  pageSizes: number[]
+  hideOnSinglePage: boolean
+  total: number
+}
+
 export interface ScaffoldSchema {
   uiRender?: UiRender
   query: ScaffoldQuery
+  request: ScaffoldRequest
+  pagination?: ScaffoldPagination
 }
 
 export type ScaffoldInstance = {

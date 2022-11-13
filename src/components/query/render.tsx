@@ -1,4 +1,4 @@
-import type { RequiredScaffoldQueryAction, ScaffoldQueryActon, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryInputForm, ScaffoldQuerySelectForm } from '../../types'
+import type { RequiredScaffoldQueryAction, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryInputForm, ScaffoldQuerySelectForm } from '../../types'
 import { config } from '../../config'
 import { ActionProps, Context } from './types'
 
