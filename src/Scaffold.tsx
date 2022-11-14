@@ -14,7 +14,7 @@ export default defineComponent({
 
     const pagination = useProvideScaffoldPagination(props.schema.pagination)
 
-    useProvideScaffoldRequest(props.schema.request, formData, pagination)
+    useProvideScaffoldRequest(props.schema.request || {}, formData, pagination)
     return {
       formData,
       fetchAsyncData 

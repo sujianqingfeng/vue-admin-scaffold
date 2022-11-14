@@ -12,4 +12,14 @@ export default defineConfig({
     }
   },
   plugins: [vue(), vueJsx()],
+  server: {
+    proxy: {
+      '/mock': {
+        target: 'https://reqres.in/',
+        ws: true,
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/mock/, '')
+      }
+    }
+  }
 })

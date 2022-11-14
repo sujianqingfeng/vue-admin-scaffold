@@ -36,6 +36,9 @@ const schema: ScaffoldSchema = {
         options: [{ label: '选项1', value: '1' },],
       }
     ]
+  },
+  request: {
+    apiFn: () => Promise.resolve({ list: [], total: 0 }) 
   }
 }
 
