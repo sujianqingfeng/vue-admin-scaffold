@@ -14,9 +14,10 @@
     "play": "vite playground --open"
   },
   "dependencies": {
-    "@sujian/utils": "^1.0.14",
+    "@sujian/utils": "^1.0.16",
     "deepmerge": "^4.2.2",
     "element-plus": "^2.2.17",
+    "qs": "^6.11.0",
     "vue": "^3.2.37"
   },
   "devDependencies": {

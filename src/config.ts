@@ -2,7 +2,11 @@ import deepmerge from 'deepmerge'
 import type { ScaffoldSchema } from './types'
 import { createElementUiRender } from './renders'
 
-export const defaultConfig: Required<ScaffoldSchema> = {
+export const defineScaffoldSchema = <T extends ScaffoldSchema>(config: T): T => {
+  return config
+}
+
+export const defaultConfig  = defineScaffoldSchema<Required<ScaffoldSchema>>({
   uiRender: createElementUiRender(),
   query: {
     layout: {
@@ -38,8 +42,14 @@ export const defaultConfig: Required<ScaffoldSchema> = {
     onSuccess: () => {},
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onError: () => {}
+  },
+  table: {
+    action: {
+      fixed: 'right'
+    },
+    cols: []
   }
-}
+})
 
 export const defineScaffoldConfig = (_config: ScaffoldSchema) => {
   config = deepmerge(defaultConfig, _config) 

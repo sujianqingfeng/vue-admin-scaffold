@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { Scaffold, ScaffoldSchema } from '@sujian/vue-admin-scaffold'
+import { Scaffold, defineScaffoldSchema } from '@sujian/vue-admin-scaffold'
 import type { ScaffoldInstance } from '@sujian/vue-admin-scaffold'
 import Test from './Test'
 
 import '@sujian/vue-admin-scaffold/style.scss'
 const scaffoldRef = ref<ScaffoldInstance>()
 
-const schema: ScaffoldSchema = {
+const schema = defineScaffoldSchema({
   query: {
     forms: [
       {
@@ -38,9 +38,17 @@ const schema: ScaffoldSchema = {
     ]
   },
   request: {
-    apiFn: () => Promise.resolve({ list: [], total: 0 }) 
+    apiFn: () => Promise.resolve({ list: [{ name: 1 }], total: 0 }) 
+  },
+  table: {
+    cols: [
+      {
+        label: '名称',
+        prop: 'name'
+      }
+    ]
   }
-}
+})
 
 onMounted(() => {
   console.log('scaffoldRef', scaffoldRef.value)

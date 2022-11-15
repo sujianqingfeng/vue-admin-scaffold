@@ -80,11 +80,25 @@ export type ScaffoldPagination = {
   total: number
 }
 
+type ScaffoldTableAction = {
+  fixed: 'right' | '' 
+}
+
+type ScaffoldTableCol = {
+  [key: string]: any
+}
+
+export type ScaffoldTable = {
+  action?: ScaffoldTableAction
+  cols: ScaffoldTableCol[]
+}
+
 export interface ScaffoldSchema {
   uiRender?: UiRender
   query: ScaffoldQuery
   request: ScaffoldRequest
   pagination?: ScaffoldPagination
+  table: ScaffoldTable
 }
 
 export type ScaffoldInstance = {
