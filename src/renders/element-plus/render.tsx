@@ -1,8 +1,9 @@
 import type { UiRender } from '../types'
-import { ElInput, ElSelect, ElOption, ElButton } from 'element-plus'
+import { ElInput, ElSelect, ElOption, ElButton, ElTable, ElTableColumn } from 'element-plus'
 import './style'
-import type { ScaffoldQueryInputForm, ScaffoldQuerySelectForm } from '../../types'
+import type { ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableCol } from '../../types'
 import type { ActionProps, Context } from '../../components/query/types'
+import type { RenderTableOption } from '../../components/table/types'
 import { createDefaultEvent, createWrapperEvent } from '../utils'
 
 const renderQueryInput = (form: ScaffoldQueryInputForm, { formData }: Context) => {
@@ -33,11 +34,24 @@ const renderQueryQueryAction = (props: ActionProps, text: string) => {
   return <ElButton type='primary' {...props}>{text}</ElButton>
 }
 
-export const createElementUiRender = () => {
+const renderTable = (option: RenderTableOption, children: JSX.Element[]) => {
+  const { tableRef, dataSource } = option
+  return <ElTable ref={tableRef} data={dataSource.value.list}>
+    {children}
+  </ElTable>
+}
+
+const renderTableColumn = (col: ScaffoldTableCol) => {
+  return <ElTableColumn {...col}></ElTableColumn>
+}
+
+export const createElementUiRender = (): UiRender => {
   return {
     renderQueryInput,
     renderQuerySelect,
     renderQueryResetAction,
-    renderQueryQueryAction 
-  } as UiRender
+    renderQueryQueryAction,
+    renderTable,
+    renderTableColumn 
+  } 
 } 

@@ -1,9 +1,19 @@
 import deepmerge from 'deepmerge'
-import { ref } from 'vue'
+import { ref, provide, inject } from 'vue'
+import type { Ref, InjectionKey } from 'vue'
+
 import type { DataSource, ScaffoldRequest } from 'src/types'
 import { config } from '../config'
 import type { InjectPagination } from './pagination'
 import type { FormDataRef } from './query'
+
+export type InjectRequest = {
+  fetchList: () => void,
+  loading: Ref<boolean>,
+  dataSource: Ref<DataSource>
+}
+
+const REQUEST_KEY = Symbol('request-key') as InjectionKey<InjectRequest> 
 
 export const useProvideScaffoldRequest  = (_request: ScaffoldRequest, formData: FormDataRef, { pagination }: InjectPagination) => {
 
@@ -44,9 +54,14 @@ export const useProvideScaffoldRequest  = (_request: ScaffoldRequest, formData: 
     fetchList()
   }
 
-  return {
+  const injectData = {
     fetchList,
     loading,
     dataSource
-  }
+  } as InjectRequest
+  
+  provide(REQUEST_KEY, injectData)
+  return injectData
 } 
+
+export const useScaffoldRequest = () => inject(REQUEST_KEY)!

@@ -84,7 +84,7 @@ type ScaffoldTableAction = {
   fixed: 'right' | '' 
 }
 
-type ScaffoldTableCol = {
+export type ScaffoldTableCol = {
   [key: string]: any
 }
 

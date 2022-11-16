@@ -4,7 +4,10 @@ import type { InjectionKey, Ref } from 'vue'
 import type { ScaffoldTable } from '../types'
 import { config } from '../config'
 
-type InjectTable = Ref<ScaffoldTable>
+export type InjectTable = {
+  table: Ref<ScaffoldTable>,
+  tableRef: Ref<any>
+} 
 
 const TABLE_KEY: InjectionKey<InjectTable> = Symbol('table-key')
 
@@ -15,13 +18,14 @@ export const useProvideScaffoldTable = (_table: ScaffoldTable) => {
     return deepmerge(defaultTable, table)
   }
 
-  const table = ref(formatTable(_table))
+  const tableInject: InjectTable = {
+    table: ref(formatTable(_table)),
+    tableRef: ref(null)
+  } 
 
-  provide(TABLE_KEY, table)
+  provide(TABLE_KEY, tableInject)
 
-  return {
-    table
-  }
+  return tableInject
 }
 
-export const useScaffoldTable = () => inject(TABLE_KEY)
+export const useScaffoldTable = () => inject(TABLE_KEY)!
