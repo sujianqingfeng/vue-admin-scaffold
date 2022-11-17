@@ -11,6 +11,10 @@ export interface Option {
 
 export type FormData<T = any> = Record<string, T> 
 
+export type Custom = {
+  render?: () => JSX.Element
+  slot?: string
+}
 export interface ScaffoldQueryLayout {
   span?: number
 }
@@ -93,6 +97,31 @@ export type ScaffoldTable = {
   cols: ScaffoldTableCol[]
 }
 
+export type ScaffoldOperateBtItem = {
+  __type__: 'bt'
+  text: string
+  onClick: () => void
+  [key: string]: any
+}
+
+export type ScaffoldOperateCustomItem = {
+  __type__: 'custom'
+} & Custom 
+
+export type ScaffoldOperateConfirmBtItem = {
+  __type__: 'confirm_bt'
+  text: string
+  confirmText: string
+  onConfirm: () => void
+  [key: string]: any
+}
+
+export type ScaffoldOperateItem = ScaffoldOperateBtItem | ScaffoldOperateCustomItem | ScaffoldOperateConfirmBtItem
+
+export type ScaffoldOperate = {
+  left: ScaffoldOperateItem[]
+  right: ScaffoldOperateItem[]
+}
 export interface ScaffoldSchema {
   uiRender?: UiRender
   query: ScaffoldQuery
