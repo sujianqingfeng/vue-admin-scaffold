@@ -1,5 +1,5 @@
 import type { ScaffoldPagination } from 'src/types'
-import {  InjectionKey, Ref } from 'vue'
+import type {  InjectionKey, Ref } from 'vue'
 import { ref, provide, inject  } from 'vue'
 import { config } from '../config'
 

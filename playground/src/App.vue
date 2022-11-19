@@ -37,6 +37,17 @@ const schema = defineScaffoldSchema({
       }
     ]
   },
+  operate: {
+    left: [
+      {
+        __type__: 'bt',
+        text: '按钮',
+        onClick() {
+          console.log('click')
+        },
+      }
+    ]
+  },
   request: {
     apiFn: () => Promise.resolve({ list: [{ name: 1 }], total: 0 }) 
   },

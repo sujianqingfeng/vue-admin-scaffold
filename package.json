@@ -11,7 +11,7 @@
     "lint:fix": "eslint . --fix",
     "lint:style": "stylelint .",
     "lint:style-fix": "stylelint  . --fix",
-    "play": "vite playground --open"
+    "play": "vite playground --open --host"
   },
   "dependencies": {
     "@sujian/utils": "^1.0.17",

@@ -26,6 +26,10 @@ export const defaultConfig  = defineScaffoldSchema<Required<ScaffoldSchema>>({
       onQuery: () => {},
     }
   },
+  operate: {
+    left: [],
+    right: []
+  },
   pagination: {
     page: 1,
     pageSize: 10,

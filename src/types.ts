@@ -119,8 +119,8 @@ export type ScaffoldOperateConfirmBtItem = {
 export type ScaffoldOperateItem = ScaffoldOperateBtItem | ScaffoldOperateCustomItem | ScaffoldOperateConfirmBtItem
 
 export type ScaffoldOperate = {
-  left: ScaffoldOperateItem[]
-  right: ScaffoldOperateItem[]
+  left?: ScaffoldOperateItem[]
+  right?: ScaffoldOperateItem[]
 }
 export interface ScaffoldSchema {
   uiRender?: UiRender
@@ -128,6 +128,7 @@ export interface ScaffoldSchema {
   request: ScaffoldRequest
   pagination?: ScaffoldPagination
   table: ScaffoldTable
+  operate?: ScaffoldOperate
 }
 
 export type ScaffoldInstance = {
