@@ -33,6 +33,4 @@ export const useProvideScaffoldPagination = (_pagination?: ScaffoldPagination) =
   return injectPagination
 }
 
-export const useScaffoldPagination = () => {
-  return inject(PAGINATION_KEY)
-}
+export const useScaffoldPagination = () => inject(PAGINATION_KEY)!

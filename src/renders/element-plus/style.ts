@@ -5,3 +5,7 @@ import 'element-plus/theme-chalk/el-option.css'
 import 'element-plus/theme-chalk/el-button.css'
 import 'element-plus/theme-chalk/el-table.css'
 import 'element-plus/theme-chalk/el-table-column.css'
+import 'element-plus/theme-chalk/el-popconfirm.css'
+import 'element-plus/theme-chalk/el-popover.css'
+import 'element-plus/theme-chalk/el-pagination.css'
+

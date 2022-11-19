@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 import { props } from './props'
 
-import { ScaffoldQuery, ScaffoldTable, ScaffoldOperate } from './components'
+import { ScaffoldQuery, ScaffoldTable, ScaffoldOperate, ScaffoldPagination } from './components'
 
 import {
   useProvideScaffoldQuery,
@@ -9,7 +9,6 @@ import {
   useProvideScaffoldRequest,
   useProvideScaffoldTable,
   useProvideScaffoldOperate
-
 } from './composables'
 
 export default defineComponent({
@@ -35,6 +34,7 @@ export default defineComponent({
       <ScaffoldQuery></ScaffoldQuery>
       <ScaffoldOperate></ScaffoldOperate>
       <ScaffoldTable></ScaffoldTable>
+      <ScaffoldPagination></ScaffoldPagination>
     </div>
   }
 }) 

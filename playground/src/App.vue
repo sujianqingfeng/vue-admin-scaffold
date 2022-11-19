@@ -42,9 +42,17 @@ const schema = defineScaffoldSchema({
       {
         __type__: 'bt',
         text: '按钮',
-        onClick() {
+        onClick: () => {
           console.log('click')
         },
+      },
+      {
+        __type__: 'confirm_bt',
+        text: '确认按钮',
+        confirmText: '确认?',
+        onConfirm: () => {
+          console.log('confirm')
+        }
       }
     ]
   },

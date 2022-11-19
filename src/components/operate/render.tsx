@@ -1,8 +1,35 @@
-import { ScaffoldOperateItem } from 'src/types'
+import type { ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldOperateCustomItem, ScaffoldOperateItem, ScaffoldOperateTypes } from 'src/types'
+import { config } from '../../config'
 
-const operateTypeMap = {}
+const { uiRender } = config
 
-export const renderOperateItem = (ietm: ScaffoldOperateItem) => {
+const isBt = (item: ScaffoldOperateItem): item is ScaffoldOperateBtItem => item.__type__ === 'bt'
+const isCustom = (item: ScaffoldOperateItem): item is ScaffoldOperateCustomItem => item.__type__ === 'custom'
+const isConfirmBt = (item: ScaffoldOperateItem): item is ScaffoldOperateConfirmBtItem => item.__type__ === 'confirm_bt'
 
-  return <div>operate</div>
+const operateTypeMap: Record<ScaffoldOperateTypes, (item: ScaffoldOperateItem) => JSX.Element> = {
+  bt: (item: ScaffoldOperateItem) => {
+    if (isBt(item)) {
+      return uiRender.renderOperateBt(item)
+    }
+    throw new Error('operate type is not bt')
+  },
+  confirm_bt: (item: ScaffoldOperateItem) => {
+    if (isConfirmBt(item)) {
+      return uiRender.renderOperateConfirmBt(item)
+    }
+    throw new Error('operate type is not custom')
+  },
+  custom: (item: ScaffoldOperateItem) => {
+    if (isCustom(item)) {
+      return uiRender.renderOperateCustom(item)
+    }
+    throw new Error('operate type is not custom')
+  }
+}
+
+export const renderOperateItem = (item: ScaffoldOperateItem) => {
+  const { __type__ } = item
+  const fn = operateTypeMap[__type__]
+  return fn(item)
 }

@@ -34,7 +34,7 @@ export const defaultConfig  = defineScaffoldSchema<Required<ScaffoldSchema>>({
     page: 1,
     pageSize: 10,
     total: 0,
-    hideOnSinglePage: true,
+    hideOnSinglePage: false,
     pageSizes: [10, 20, 50, 100]
   },
   request: {

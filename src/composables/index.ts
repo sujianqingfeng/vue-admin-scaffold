@@ -1,13 +1,6 @@
-import { useProvideScaffoldQuery } from './query'
-import { useProvideScaffoldPagination } from './pagination'
-import { useProvideScaffoldRequest } from './request'
-import { useProvideScaffoldTable } from './table'
-import { useProvideScaffoldOperate } from './operate'
+export * from './query'
+export * from './operate'
+export * from './pagination'
+export * from './request'
+export * from './table'
 
-export {
-  useProvideScaffoldQuery,
-  useProvideScaffoldPagination,
-  useProvideScaffoldRequest,
-  useProvideScaffoldTable,
-  useProvideScaffoldOperate
-}

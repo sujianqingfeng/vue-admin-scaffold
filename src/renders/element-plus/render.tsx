@@ -1,7 +1,7 @@
 import type { UiRender } from '../types'
-import { ElInput, ElSelect, ElOption, ElButton, ElTable, ElTableColumn } from 'element-plus'
+import { ElInput, ElSelect, ElOption, ElButton, ElTable, ElTableColumn, ElPopconfirm, ElPagination } from 'element-plus'
 import './style'
-import type { ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableCol } from '../../types'
+import type { ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldOperateCustomItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableCol } from '../../types'
 import type { ActionProps, Context } from '../../components/query/types'
 import type { RenderTableOption } from '../../components/table/types'
 import { createDefaultEvent, createWrapperEvent } from '../utils'
@@ -45,6 +45,29 @@ const renderTableColumn = (col: ScaffoldTableCol) => {
   return <ElTableColumn {...col}></ElTableColumn>
 }
 
+const renderOperateBt  = (item: ScaffoldOperateBtItem) => {
+  const { text, onClick } = item
+  return <ElButton onClick={onClick}>{text}</ElButton>
+} 
+
+const renderOperateConfirmBt = (item: ScaffoldOperateConfirmBtItem) => {
+  const { text, confirmText, onConfirm } = item
+  return <ElPopconfirm title={confirmText} onConfirm={onConfirm}>
+    {{
+      reference: () => <ElButton>{text}</ElButton>,
+    }}
+  </ElPopconfirm>
+}
+
+const renderOperateCustom = (item: ScaffoldOperateCustomItem) => {
+  const { slot } = item
+  return <div>{slot}</div>
+} 
+
+const renderPagination = (pagination: ScaffoldPagination) => {
+  return <ElPagination {...pagination}></ElPagination>
+}
+
 export const createElementUiRender = (): UiRender => {
   return {
     renderQueryInput,
@@ -52,6 +75,10 @@ export const createElementUiRender = (): UiRender => {
     renderQueryResetAction,
     renderQueryQueryAction,
     renderTable,
-    renderTableColumn 
+    renderTableColumn,
+    renderOperateBt,
+    renderOperateConfirmBt,
+    renderOperateCustom,
+    renderPagination
   } 
 } 

@@ -117,6 +117,7 @@ export type ScaffoldOperateConfirmBtItem = {
 }
 
 export type ScaffoldOperateItem = ScaffoldOperateBtItem | ScaffoldOperateCustomItem | ScaffoldOperateConfirmBtItem
+export type ScaffoldOperateTypes = ScaffoldOperateItem['__type__']
 
 export type ScaffoldOperate = {
   left?: ScaffoldOperateItem[]
