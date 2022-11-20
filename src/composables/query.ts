@@ -121,7 +121,7 @@ export const useProvideScaffoldQuery = (query: ScaffoldQuery) => {
   const finalForms = formatForms(forms, layout)
   const action = ref(formatAction(query.action || {}))
 
-  const injectData: InjectQuery = { layout, formData, asyncData, forms: finalForms, action  }
+  const injectData: InjectQuery = { layout, formData, asyncData, forms: finalForms, action }
 
   provide(QUERY_KEY, injectData)
   return { ...injectData, fetchAsyncData }

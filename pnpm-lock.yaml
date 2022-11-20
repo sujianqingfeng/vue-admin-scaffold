@@ -22,6 +22,7 @@ importers:
       fast-glob: ^3.2.12
       gulp: ^4.0.2
       gulp-sass: ^5.1.0
+      lodash-es: ^4.17.21
       postcss: ^8.4.17
       rollup: ^3.2.0
       rollup-plugin-esbuild: ^4.10.1
@@ -35,6 +36,7 @@ importers:
       '@sujian/utils': 1.0.17_debug@4.3.4
       deepmerge: 4.2.2
       element-plus: 2.2.18_vue@3.2.41
+      lodash-es: 4.17.21
       vue: 3.2.41
     devDependencies:
       '@esbuild-kit/cjs-loader': 2.4.0
@@ -1045,7 +1047,7 @@ packages:
       vite: ^3.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 3.1.8
+      vite: 3.1.8_sass@1.55.0
       vue: 3.2.41
     dev: true
 

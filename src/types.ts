@@ -9,20 +9,28 @@ export interface Option {
   value?: Value
 }
 
+// ------------query--------------------
+
 export type FormData<T = any> = Record<string, T> 
 
 export type Custom = {
   render?: () => JSX.Element
   slot?: string
 }
+
+export type FormItemWidthMap = Record<number, [number, number]>
 export interface ScaffoldQueryLayout {
   span?: number
+  showLine?: number
+  labelWidth?: string
+  formItemWidthMap?: FormItemWidthMap
 }
 export type RequiredScaffoldQueryLayout = Required<ScaffoldQueryLayout>
 
 type ScaffoldQueryCommonForm = {
   label: string
   value?: any
+  show?: (formData: FormData) => boolean
   [index: string]: any
 } 
 
@@ -38,7 +46,12 @@ export type ScaffoldQueryInputForm = ScaffoldQueryCommonForm  & {
   key: string
 }
 
-export type ScaffoldQueryForm = ScaffoldQuerySelectForm | ScaffoldQueryInputForm
+export type ScaffoldQueryAddExtraParamsForm = ScaffoldQueryCommonForm  & {
+  __type__: 'add-extra-params'
+  key: string
+}
+
+export type ScaffoldQueryForm = ScaffoldQuerySelectForm | ScaffoldQueryInputForm | ScaffoldQueryAddExtraParamsForm 
 
 export type ScaffoldQueryFormTypes  = ScaffoldQueryForm['__type__'] 
 
@@ -59,6 +72,8 @@ export interface ScaffoldQuery {
   forms?: ScaffoldQueryForm[]
   action?: ScaffoldQueryActon
 }
+
+// ---------------request------------------------
 
 export type DataSource = {
   list: unknown[]

@@ -34,6 +34,11 @@ const renderQueryQueryAction = (props: ActionProps, text: string) => {
   return <ElButton type='primary' {...props}>{text}</ElButton>
 }
 
+const renderQueryMore = (isShowAll: boolean) => {
+  const text = isShowAll ? '收起' : '更多'
+  return <div> {text}</div>
+}
+
 const renderTable = (option: RenderTableOption, children: JSX.Element[]) => {
   const { tableRef, dataSource } = option
   return <ElTable ref={tableRef} data={dataSource.value.list}>
@@ -79,6 +84,7 @@ export const createElementUiRender = (): UiRender => {
     renderOperateBt,
     renderOperateConfirmBt,
     renderOperateCustom,
-    renderPagination
+    renderPagination,
+    renderQueryMore
   } 
 } 

@@ -7,6 +7,7 @@ export type UiRender = {
   renderQuerySelect: (form: ScaffoldQuerySelectForm, context: Context) => JSX.Element
   renderQueryResetAction: (props: ActionProps, text: string) => JSX.Element
   renderQueryQueryAction: (props: ActionProps, text: string) => JSX.Element
+  renderQueryMore: (isShowAll: boolean) => JSX.Element
   renderTable: (option: RenderTableOption, children: JSX.Element[]) => JSX.Element
   renderTableColumn: (col: ScaffoldTableCol) => JSX.Element
   renderOperateBt: (operate: ScaffoldOperateBtItem) => JSX.Element

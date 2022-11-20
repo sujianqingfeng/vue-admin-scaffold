@@ -10,7 +10,15 @@ export const defaultConfig  = defineScaffoldSchema<Required<ScaffoldSchema>>({
   uiRender: createElementUiRender(),
   query: {
     layout: {
-      span: 1
+      span: 1,
+      showLine: 100,
+      labelWidth: '84px',
+      formItemWidthMap: {
+        1: [-8000, 800],
+        2: [800, 1170],
+        3: [1170, 1600],
+        4: [1600, 8000]
+      }
     },
     forms: [],
     action: {
