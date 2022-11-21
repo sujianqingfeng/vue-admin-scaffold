@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, h } from 'vue'
 import { Scaffold, defineScaffoldSchema } from '@sujian/vue-admin-scaffold'
 import type { ScaffoldInstance } from '@sujian/vue-admin-scaffold'
 import Test from './Test'
@@ -34,6 +34,15 @@ const schema = defineScaffoldSchema({
         key: 'select1',
         autoFetch: false,
         options: [{ label: '选项1', value: '1' },],
+      },
+      {
+        __type__: 'custom',
+        key: 'custom',
+        label: '自定义',
+        render: (context) => {
+          console.log('custom form item render', context.formData)
+          return h('span', '自定义')
+        } 
       }
     ]
   },
@@ -52,6 +61,12 @@ const schema = defineScaffoldSchema({
         confirmText: '确认?',
         onConfirm: () => {
           console.log('confirm')
+        }
+      },
+      {
+        __type__: 'custom',
+        render: () => {
+          return h('span', '自定义')
         }
       }
     ]

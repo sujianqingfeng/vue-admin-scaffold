@@ -1,29 +1,37 @@
-import type { RequiredScaffoldQueryAction, ScaffoldQueryAddExtraParamsForm, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryInputForm, ScaffoldQuerySelectForm } from '../../types'
+import type { QueryContext, RequiredScaffoldQueryAction, ScaffoldQueryAddExtraParamsForm, ScaffoldQueryCustomForm, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryInputForm, ScaffoldQuerySelectForm } from '../../types'
 import { config } from '../../config'
-import { ActionProps, Context } from './types'
+import type { ActionProps } from './types'
+import RenderOrSlot from '../render-or-slot'
 
 const { uiRender } = config
 
 const isInput = (form: ScaffoldQueryForm): form is ScaffoldQueryInputForm => form.__type__ === 'input'
 const isSelect = (form: ScaffoldQueryForm): form is ScaffoldQuerySelectForm => form.__type__ === 'select'
+const isCustom = (form: ScaffoldQueryForm): form is ScaffoldQueryCustomForm => form.__type__ === 'custom'
 export const isAddExtraParams = (form: ScaffoldQueryForm): form is ScaffoldQueryAddExtraParamsForm => form.__type__ === 'add-extra-params'
 
-const formTypeMap: Record<Exclude<ScaffoldQueryFormTypes, 'add-extra-params'>, (form: ScaffoldQueryForm, context: Context) => JSX.Element> = {
-  input: (form: ScaffoldQueryForm, context: Context) => {
+const formTypeMap: Record<Exclude<ScaffoldQueryFormTypes, 'add-extra-params'>, (form: ScaffoldQueryForm, context: QueryContext) => JSX.Element> = {
+  input: (form: ScaffoldQueryForm, context: QueryContext) => {
     if (isInput(form)) {
       return uiRender.renderQueryInput(form, context)
     }
     throw new Error('form type is not input')
   },
-  select: (form: ScaffoldQueryForm, context: Context) => {
+  select: (form: ScaffoldQueryForm, context: QueryContext) => {
     if (isSelect(form)) {
       return uiRender.renderQuerySelect(form, context)
     }
     throw new Error('form type is not select')
-  } 
+  },
+  custom: (form: ScaffoldQueryForm, context: QueryContext) => {
+    if (isCustom(form)) {
+      return <RenderOrSlot name='query-item-custom' option={form} param={context}></RenderOrSlot>
+    }
+    throw new Error('form type is not custom')
+  }
 }
 
-export const renderFormItem = (form: Exclude<ScaffoldQueryForm, ScaffoldQueryAddExtraParamsForm>, context: Context) => {
+export const renderFormItem = (form: Exclude<ScaffoldQueryForm, ScaffoldQueryAddExtraParamsForm>, context: QueryContext) => {
   const { __type__ } = form
   const renderFn = formTypeMap[__type__]
   return renderFn(form, context)

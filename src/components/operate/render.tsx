@@ -1,5 +1,6 @@
 import type { ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldOperateCustomItem, ScaffoldOperateItem, ScaffoldOperateTypes } from 'src/types'
 import { config } from '../../config'
+import RenderOrSlot from '../render-or-slot'
 
 const { uiRender } = config
 
@@ -21,8 +22,9 @@ const operateTypeMap: Record<ScaffoldOperateTypes, (item: ScaffoldOperateItem) =
     throw new Error('operate type is not custom')
   },
   custom: (item: ScaffoldOperateItem) => {
+    // TODO context
     if (isCustom(item)) {
-      return uiRender.renderOperateCustom(item)
+      return <RenderOrSlot name='operate-custom-item' option={item}></RenderOrSlot> 
     }
     throw new Error('operate type is not custom')
   }

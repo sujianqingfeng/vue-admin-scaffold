@@ -1,4 +1,5 @@
 import type { UiRender } from './renders/types'
+import type { Ref } from 'vue'
 
 export type WithRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
 
@@ -9,12 +10,20 @@ export interface Option {
   value?: Value
 }
 
-// ------------query--------------------
+// --- query ---
 
 export type FormData<T = any> = Record<string, T> 
 
-export type Custom = {
-  render?: () => JSX.Element
+export type FormDataRef = Ref<Record<string, any>>
+export type AsyncDataRef = Ref<Record<string, any>>
+
+export type QueryContext = {
+  asyncData: AsyncDataRef
+  formData: FormDataRef
+}
+
+export type Custom<T = any> = {
+  render?: (param: T) => JSX.Element
   slot?: string
 }
 
@@ -46,14 +55,20 @@ export type ScaffoldQueryInputForm = ScaffoldQueryCommonForm  & {
   key: string
 }
 
+export type ScaffoldQueryCustomForm = Custom<QueryContext> & ScaffoldQueryCommonForm  & {
+  __type__: 'custom'
+  key: string
+}
+
 export type ScaffoldQueryAddExtraParamsForm = ScaffoldQueryCommonForm  & {
   __type__: 'add-extra-params'
   key: string
 }
 
-export type ScaffoldQueryForm = ScaffoldQuerySelectForm | ScaffoldQueryInputForm | ScaffoldQueryAddExtraParamsForm 
+export type ScaffoldQueryForm = ScaffoldQuerySelectForm | ScaffoldQueryInputForm | ScaffoldQueryAddExtraParamsForm | ScaffoldQueryCustomForm 
 
 export type ScaffoldQueryFormTypes  = ScaffoldQueryForm['__type__'] 
+export type AsyncQueryFormTypes = Exclude<ScaffoldQueryFormTypes, 'input' | 'custom' | 'add-extra-params'>
 
 export type ScaffoldQueryActon = {
   hasReset?: boolean
@@ -73,7 +88,7 @@ export interface ScaffoldQuery {
   action?: ScaffoldQueryActon
 }
 
-// ---------------request------------------------
+// --- request ---
 
 export type DataSource = {
   list: unknown[]
@@ -87,7 +102,7 @@ export type ScaffoldRequest = {
   apiFn: (data: any) => Promise<DataSource>
   transform?: Transform
   adapter?: (data: any) => DataSource 
-  onSuccess?: (data: any, origialData: any) => void
+  onSuccess?: (data: any, originalData: any) => void
   onError?: (err: Error) => void
 }
 
@@ -99,8 +114,27 @@ export type ScaffoldPagination = {
   total: number
 }
 
+// --- table ---
+
+export type ScaffoldTableActionTextBt = {
+  __type__: 'text_bt'
+}
+
+export type ScaffoldTableActionCustom = {
+  __type__: 'custom'
+}
+
+export type ScaffoldTableActionConfirmTextBt = {
+  __type__: 'confirm_text_bt'
+}
+
+export type ScaffoldTableActionItem = ScaffoldTableActionTextBt | ScaffoldTableActionCustom | ScaffoldTableActionConfirmTextBt 
+
+export type ScaffoldTableActionTypes = ScaffoldTableActionItem['__type__']
+
 type ScaffoldTableAction = {
-  fixed: 'right' | '' 
+  fixed: 'right' | ''
+  list?: ScaffoldTableActionItem[] 
 }
 
 export type ScaffoldTableCol = {
@@ -111,6 +145,8 @@ export type ScaffoldTable = {
   action?: ScaffoldTableAction
   cols: ScaffoldTableCol[]
 }
+
+// --- operate ---
 
 export type ScaffoldOperateBtItem = {
   __type__: 'bt'
@@ -138,6 +174,8 @@ export type ScaffoldOperate = {
   left?: ScaffoldOperateItem[]
   right?: ScaffoldOperateItem[]
 }
+
+// --- main ---
 export interface ScaffoldSchema {
   uiRender?: UiRender
   query: ScaffoldQuery

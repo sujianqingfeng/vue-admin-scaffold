@@ -1,12 +1,9 @@
 import { inject, provide, ref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
-import type { FormData, RequiredScaffoldQueryAction, RequiredScaffoldQueryLayout, ScaffoldQuery, ScaffoldQueryActon, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryLayout, ScaffoldQuerySelectForm } from '../types'
+import type { AsyncDataRef, AsyncQueryFormTypes, FormData, FormDataRef, RequiredScaffoldQueryAction, RequiredScaffoldQueryLayout, ScaffoldQuery, ScaffoldQueryActon, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryLayout, ScaffoldQuerySelectForm } from '../types'
 import { isArray, isFunction, isString } from '@sujian/utils'
 import { config } from '../config'
 import { generateKey } from '../utils'
-
-export type FormDataRef = Ref<Record<string, any>>
-export type AsyncDataRef = Ref<Record<string, any>>
 
 type InjectQuery = {
   layout: Ref<RequiredScaffoldQueryLayout>
@@ -81,7 +78,7 @@ const useFetchAsyncData = (forms: ScaffoldQueryForm[], formData: Ref<FormData>) 
     }
   }
 
-  const asyncTypeMap: Record<Exclude<ScaffoldQueryFormTypes, 'input'>, (form: ScaffoldQueryForm) => void > = {
+  const asyncTypeMap: Record<AsyncQueryFormTypes, (form: ScaffoldQueryForm) => void> = {
     select: generateOptions
   }
 

@@ -1,12 +1,12 @@
 import type { UiRender } from '../types'
 import { ElInput, ElSelect, ElOption, ElButton, ElTable, ElTableColumn, ElPopconfirm, ElPagination } from 'element-plus'
 import './style'
-import type { ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldOperateCustomItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableCol } from '../../types'
-import type { ActionProps, Context } from '../../components/query/types'
+import type { QueryContext, ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableCol } from '../../types'
+import type { ActionProps } from '../../components/query/types'
 import type { RenderTableOption } from '../../components/table/types'
 import { createDefaultEvent, createWrapperEvent } from '../utils'
 
-const renderQueryInput = (form: ScaffoldQueryInputForm, { formData }: Context) => {
+const renderQueryInput = (form: ScaffoldQueryInputForm, { formData }: QueryContext) => {
   const { key, label } = form 
   const on = createWrapperEvent(form, {
     onInput: createDefaultEvent(formData, key)
@@ -15,7 +15,7 @@ const renderQueryInput = (form: ScaffoldQueryInputForm, { formData }: Context) =
   return <ElInput placeholder={placeholder} modelValue={formData.value[key]} {...on}></ElInput>
 } 
 
-const renderQuerySelect = (form: ScaffoldQuerySelectForm, { formData, asyncData }: Context) => {
+const renderQuerySelect = (form: ScaffoldQuerySelectForm, { formData, asyncData }: QueryContext) => {
   const { key, label } = form
   const on = createWrapperEvent(form, {
     onChange: createDefaultEvent(formData, key)
@@ -35,6 +35,7 @@ const renderQueryQueryAction = (props: ActionProps, text: string) => {
 }
 
 const renderQueryMore = (isShowAll: boolean) => {
+  // TODO extract out
   const text = isShowAll ? '收起' : '更多'
   return <div> {text}</div>
 }
@@ -64,11 +65,6 @@ const renderOperateConfirmBt = (item: ScaffoldOperateConfirmBtItem) => {
   </ElPopconfirm>
 }
 
-const renderOperateCustom = (item: ScaffoldOperateCustomItem) => {
-  const { slot } = item
-  return <div>{slot}</div>
-} 
-
 const renderPagination = (pagination: ScaffoldPagination) => {
   return <ElPagination {...pagination}></ElPagination>
 }
@@ -83,7 +79,6 @@ export const createElementUiRender = (): UiRender => {
     renderTableColumn,
     renderOperateBt,
     renderOperateConfirmBt,
-    renderOperateCustom,
     renderPagination,
     renderQueryMore
   } 

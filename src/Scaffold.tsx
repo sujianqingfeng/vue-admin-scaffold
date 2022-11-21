@@ -8,7 +8,8 @@ import {
   useProvideScaffoldPagination, 
   useProvideScaffoldRequest,
   useProvideScaffoldTable,
-  useProvideScaffoldOperate
+  useProvideScaffoldOperate,
+  useProvideScaffoldSlots
 } from './composables'
 
 export default defineComponent({
@@ -22,6 +23,7 @@ export default defineComponent({
 
     useProvideScaffoldRequest(props.schema.request || {}, formData, pagination)
     useProvideScaffoldTable(props.schema.table || {})
+    useProvideScaffoldSlots()
 
     return {
       formData,
