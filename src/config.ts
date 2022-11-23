@@ -57,7 +57,9 @@ export const defaultConfig  = defineScaffoldSchema<Required<ScaffoldSchema>>({
   },
   table: {
     action: {
-      fixed: 'right'
+      text: '操作',
+      fixed: 'right',
+      list: []
     },
     cols: []
   }

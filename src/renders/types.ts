@@ -1,4 +1,4 @@
-import type { QueryContext, ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableCol } from 'src/types'
+import type { QueryContext, ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableActionConfirmTextBt, ScaffoldTableActionTextBt, ScaffoldTableCol } from 'src/types'
 import type { ActionProps } from '../components/query/types'
 import type { RenderTableOption } from '../components/table/types'
 
@@ -13,4 +13,6 @@ export type UiRender = {
   renderOperateBt: (operate: ScaffoldOperateBtItem) => JSX.Element
   renderOperateConfirmBt: (operate: ScaffoldOperateConfirmBtItem) => JSX.Element
   renderPagination: (pagination: ScaffoldPagination) => JSX.Element
+  renderTableTextBtAction: (operate: ScaffoldTableActionTextBt) => JSX.Element
+  renderTableConfirmTextBtAction: (operate: ScaffoldTableActionConfirmTextBt) => JSX.Element
 }

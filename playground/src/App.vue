@@ -80,7 +80,19 @@ const schema = defineScaffoldSchema({
         label: '名称',
         prop: 'name'
       }
-    ]
+    ],
+    action: {
+      list: [
+        {
+          __type__: 'text_bt',
+          text: '按钮',
+          onClick: () => {
+            console.log('click')
+          },
+        }
+      ]
+    }
+    
   }
 })
 

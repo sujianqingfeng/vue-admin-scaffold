@@ -116,16 +116,27 @@ export type ScaffoldPagination = {
 
 // --- table ---
 
-export type ScaffoldTableActionTextBt = {
-  __type__: 'text_bt'
+type ScaffoldTableActionShow = {
+  show?: () => boolean
 }
 
-export type ScaffoldTableActionCustom = {
+export type ScaffoldTableActionTextBt = {
+  __type__: 'text_bt'
+  // TODO function
+  text: string
+  onClick: () => void
+}
+
+export type ScaffoldTableActionCustom = Custom & {
   __type__: 'custom'
 }
 
 export type ScaffoldTableActionConfirmTextBt = {
   __type__: 'confirm_text_bt'
+  // TODO function
+  text: string
+  confirmText: string
+  onConfirm: () => void
 }
 
 export type ScaffoldTableActionItem = ScaffoldTableActionTextBt | ScaffoldTableActionCustom | ScaffoldTableActionConfirmTextBt 
@@ -133,13 +144,16 @@ export type ScaffoldTableActionItem = ScaffoldTableActionTextBt | ScaffoldTableA
 export type ScaffoldTableActionTypes = ScaffoldTableActionItem['__type__']
 
 type ScaffoldTableAction = {
-  fixed: 'right' | ''
+  text?: string
+  fixed?: 'right' | ''
   list?: ScaffoldTableActionItem[] 
 }
 
-export type ScaffoldTableCol = {
+export type  ScaffoldTableColWithoutCustom = {
   [key: string]: any
 }
+
+export type ScaffoldTableCol = Custom & ScaffoldTableColWithoutCustom 
 
 export type ScaffoldTable = {
   action?: ScaffoldTableAction
