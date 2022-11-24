@@ -47,22 +47,31 @@ const renderTable = (option: RenderTableOption, children: JSX.Element[]) => {
   </ElTable>
 }
 
-const renderTableColumn = (col: ScaffoldTableColWithoutCustom) => {
-  return <ElTableColumn {...col}></ElTableColumn>
+const renderTableColumn = (col: ScaffoldTableColWithoutCustom, render: ((param: any) => JSX.Element) | null) => {
+  return <ElTableColumn {...col}>
+    {{
+      default: (param: any) => {
+        if (!render) {
+          return null
+        } 
+        return render(param)
+      } 
+    }}
+  </ElTableColumn>
 }
 
-const renderTableConfirmTextBtAction = (item: ScaffoldTableActionConfirmTextBt) => {
+const renderTableConfirmTextBtAction = (item: ScaffoldTableActionConfirmTextBt, param: any) => {
   const { text, confirmText, onConfirm } = item
 
-  return <ElPopconfirm title={confirmText} onConfirm={onConfirm}>
+  return <ElPopconfirm title={confirmText} onConfirm={() => onConfirm(param)}>
     {{
       reference: () => <ElButton link>{text}</ElButton>,
     }}
   </ElPopconfirm>
 }
-const renderTableTextBtAction = (item: ScaffoldTableActionTextBt) => {
+const renderTableTextBtAction = (item: ScaffoldTableActionTextBt, param: any) => {
   const { text, onClick } = item
-  return <ElButton link onClick={onClick}>{text}</ElButton>
+  return <ElButton link onClick={() => onClick(param)}>{text}</ElButton>
 }
 
 const renderOperateBt  = (item: ScaffoldOperateBtItem) => {

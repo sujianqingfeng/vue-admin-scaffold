@@ -79,6 +79,12 @@ const schema = defineScaffoldSchema({
       {
         label: '名称',
         prop: 'name'
+      },
+      {
+        label: '自定义',
+        render: (param: any) => {
+          return h('span', `自定义 ${param.row.name}`)
+        }
       }
     ],
     action: {
@@ -86,8 +92,8 @@ const schema = defineScaffoldSchema({
         {
           __type__: 'text_bt',
           text: '按钮',
-          onClick: () => {
-            console.log('click')
+          onClick: (param: any) => {
+            console.log('click', param)
           },
         }
       ]

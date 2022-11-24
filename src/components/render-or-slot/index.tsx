@@ -21,6 +21,7 @@ export default defineComponent({
   setup(props) {
     const slots = useScaffoldSlots()
     return () => {
+      
       const { render, slot } = props.option
       const { param } = props
       if (render) {

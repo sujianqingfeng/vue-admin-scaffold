@@ -23,7 +23,7 @@ export type QueryContext = {
 }
 
 export type Custom<T = any> = {
-  render?: (param: T) => JSX.Element
+  render?: (param: T) => JSX.Element | JSX.Element[]
   slot?: string
 }
 
@@ -124,7 +124,7 @@ export type ScaffoldTableActionTextBt = {
   __type__: 'text_bt'
   // TODO function
   text: string
-  onClick: () => void
+  onClick: (param: any) => void
 }
 
 export type ScaffoldTableActionCustom = Custom & {
@@ -136,7 +136,7 @@ export type ScaffoldTableActionConfirmTextBt = {
   // TODO function
   text: string
   confirmText: string
-  onConfirm: () => void
+  onConfirm: (param: any) => void
 }
 
 export type ScaffoldTableActionItem = ScaffoldTableActionTextBt | ScaffoldTableActionCustom | ScaffoldTableActionConfirmTextBt 

@@ -18,10 +18,10 @@ export default defineComponent({
       return list 
     } 
 
-    const renderActions = (actions: ScaffoldTableActionItem[]) => {
+    const renderActions = (actions: ScaffoldTableActionItem[], param: any) => {
       const list = actions
         .map(action => {
-          return renderTableAction(action)
+          return renderTableAction(action, param)
         })
       return list
     }
@@ -31,8 +31,8 @@ export default defineComponent({
     // actions
     if (table.value.action && table.value.action.list && table.value.action.list.length) {
       const { text } = table.value.action
-      const actions = renderActions(table.value.action.list)
-      const col = renderTableColumn({ label: text })
+      const createActionRender = (param: any) => renderActions(table.value.action!.list!, param)
+      const col = renderTableColumn({ label: text, render: createActionRender })
       columns.push(col)
     }
     const option = { tableRef, loading, dataSource }
