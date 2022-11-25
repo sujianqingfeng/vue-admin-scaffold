@@ -57,7 +57,6 @@ export default defineComponent({
         <div ref={formRef} class="forms">
           <div class="row">
             {renderCols()}
-            { JSON.stringify(asyncData.value) }
           </div>
         </div>
         <div class="actions">

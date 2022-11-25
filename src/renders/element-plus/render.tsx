@@ -1,7 +1,7 @@
 import type { UiRender } from '../types'
 import { ElInput, ElSelect, ElOption, ElButton, ElTable, ElTableColumn, ElPopconfirm, ElPagination } from 'element-plus'
 import './style'
-import type { Custom, QueryContext, ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableActionConfirmTextBt, ScaffoldTableActionTextBt, ScaffoldTableCol, ScaffoldTableColWithoutCustom } from '../../types'
+import type {  GetContentFn, QueryContext, ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableActionConfirmTextBt, ScaffoldTableActionTextBt, ScaffoldTableCol, ScaffoldTableColWithoutCustom } from '../../types'
 import type { ActionProps } from '../../components/query/types'
 import type { RenderTableOption } from '../../components/table/types'
 import { createDefaultEvent, createWrapperEvent } from '../utils'
@@ -74,14 +74,14 @@ const renderTableTextBtAction = (item: ScaffoldTableActionTextBt, param: any) =>
   return <ElButton link onClick={() => onClick(param)}>{text}</ElButton>
 }
 
-const renderOperateBt  = (item: ScaffoldOperateBtItem) => {
+const renderOperateBt  = (item: ScaffoldOperateBtItem, contentFn: GetContentFn) => {
   const { text, onClick } = item
-  return <ElButton onClick={onClick}>{text}</ElButton>
+  return <ElButton onClick={() => onClick(contentFn())}>{text}</ElButton>
 } 
 
-const renderOperateConfirmBt = (item: ScaffoldOperateConfirmBtItem) => {
+const renderOperateConfirmBt = (item: ScaffoldOperateConfirmBtItem, contentFn: GetContentFn) => {
   const { text, confirmText, onConfirm } = item
-  return <ElPopconfirm title={confirmText} onConfirm={onConfirm}>
+  return <ElPopconfirm title={confirmText} onConfirm={() => onConfirm(contentFn())}>
     {{
       reference: () => <ElButton>{text}</ElButton>,
     }}

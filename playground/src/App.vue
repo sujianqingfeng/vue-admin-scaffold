@@ -19,6 +19,14 @@ const schema = defineScaffoldSchema({
         }
       },
       {
+        __type__: 'input',
+        label: '输入',
+        key: 'name1',
+        onInput: (val: string) => {
+          console.log('onInput', val)
+        }
+      },
+      {
         __type__: 'select',
         label: '选择',
         key: 'select',
@@ -51,8 +59,8 @@ const schema = defineScaffoldSchema({
       {
         __type__: 'bt',
         text: '按钮',
-        onClick: () => {
-          console.log('click')
+        onClick: (context: any) => {
+          console.log('click', context)
         },
       },
       {

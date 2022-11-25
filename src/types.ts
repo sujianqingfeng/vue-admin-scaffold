@@ -162,22 +162,29 @@ export type ScaffoldTable = {
 
 // --- operate ---
 
+export type OperateContext = {
+  tableInstance: any
+  formData: FormData
+}
+
+export type GetContentFn = () => OperateContext 
+
 export type ScaffoldOperateBtItem = {
   __type__: 'bt'
   text: string
-  onClick: () => void
+  onClick: (context: OperateContext ) => void
   [key: string]: any
 }
 
 export type ScaffoldOperateCustomItem = {
   __type__: 'custom'
-} & Custom 
+} & Custom<OperateContext> 
 
 export type ScaffoldOperateConfirmBtItem = {
   __type__: 'confirm_bt'
   text: string
   confirmText: string
-  onConfirm: () => void
+  onConfirm: (context: OperateContext) => void
   [key: string]: any
 }
 

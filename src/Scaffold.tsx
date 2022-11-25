@@ -15,7 +15,7 @@ import {
 export default defineComponent({
   name: 'Scaffold',
   props,
-  setup(props) {
+  setup(props, { expose }) {
     const { formData, fetchAsyncData } = useProvideScaffoldQuery(props.schema.query)
     const pagination = useProvideScaffoldPagination(props.schema.pagination)
     
@@ -25,14 +25,12 @@ export default defineComponent({
     useProvideScaffoldTable(props.schema.table || {})
     useProvideScaffoldSlots()
 
-    return {
+    expose({
       formData,
       fetchAsyncData 
-    }
-  },
-  render() {
-    return <div class='scaffold-container'>
-      {JSON.stringify(this.formData)}
+    })
+
+    return () => <div class='scaffold-container'>
       <ScaffoldQuery></ScaffoldQuery>
       <ScaffoldOperate></ScaffoldOperate>
       <ScaffoldTable></ScaffoldTable>

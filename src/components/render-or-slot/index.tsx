@@ -14,7 +14,7 @@ export default defineComponent({
       default: () => ({})
     },
     param: {
-      type: Object,
+      type: [Function, Object],
       default: () => ({})
     }
   },
@@ -25,6 +25,9 @@ export default defineComponent({
       const { render, slot } = props.option
       const { param } = props
       if (render) {
+        if (typeof param === 'function') {
+          return render(param())
+        }
         return render(param) 
       }
       const { name } = props

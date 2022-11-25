@@ -38,7 +38,6 @@ export default defineComponent({
     const option = { tableRef, loading, dataSource }
 
     return () => <div class='table-container'>
-      table
       {renderTable(option, columns)}
     </div>
   }
