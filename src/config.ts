@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge'
-import type { ScaffoldSchema } from './types'
+import type { DeepPartial, ScaffoldSchema } from './types'
 import { createElementUiRender } from './renders'
 
 export const defineScaffoldSchema = <T extends ScaffoldSchema>(config: T): T => {
@@ -65,7 +65,7 @@ export const defaultConfig  = defineScaffoldSchema<Required<ScaffoldSchema>>({
   }
 })
 
-export const defineScaffoldConfig = (_config: ScaffoldSchema) => {
+export const defineScaffoldConfig = (_config: DeepPartial<ScaffoldSchema>) => {
   config = deepmerge(defaultConfig, _config) 
 }
 

@@ -4,6 +4,7 @@ importers:
 
   .:
     specifiers:
+      '@element-plus/icons-vue': ^2.0.10
       '@esbuild-kit/cjs-loader': ^2.4.0
       '@rollup/plugin-commonjs': ^23.0.0
       '@sujian/eslint-config-vue3-ts': ^0.0.20
@@ -33,6 +34,7 @@ importers:
       vite: ^3.1.0
       vue: ^3.2.37
     dependencies:
+      '@element-plus/icons-vue': 2.0.10_vue@3.2.41
       '@sujian/utils': 1.0.17_debug@4.3.4
       deepmerge: 4.2.2
       element-plus: 2.2.18_vue@3.2.41

@@ -2,6 +2,7 @@ import type { UiRender } from './renders/types'
 import type { Ref } from 'vue'
 
 export type WithRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
+export type DeepPartial<T> = Partial<{ [P in keyof T]: DeepPartial<T[P]> }>;
 
 type Value =  string | number | boolean | null
 

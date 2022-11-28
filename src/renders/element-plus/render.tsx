@@ -1,10 +1,12 @@
 import type { UiRender } from '../types'
-import { ElInput, ElSelect, ElOption, ElButton, ElTable, ElTableColumn, ElPopconfirm, ElPagination } from 'element-plus'
+import { ElInput, ElSelect, ElOption, ElButton, ElTable, ElTableColumn, ElPopconfirm, ElPagination, ElIcon } from 'element-plus'
 import './style'
 import type {  GetContentFn, QueryContext, ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableActionConfirmTextBt, ScaffoldTableActionTextBt, ScaffoldTableCol, ScaffoldTableColWithoutCustom } from '../../types'
 import type { ActionProps } from '../../components/query/types'
 import type { RenderTableOption } from '../../components/table/types'
 import { createDefaultEvent, createWrapperEvent } from '../utils'
+import { ArrowUp  } from '@element-plus/icons-vue'
+import { CSSProperties } from 'vue'
 
 const renderQueryInput = (form: ScaffoldQueryInputForm, { formData }: QueryContext) => {
   const { key, label } = form 
@@ -37,7 +39,11 @@ const renderQueryQueryAction = (props: ActionProps, text: string) => {
 const renderQueryMore = (isShowAll: boolean) => {
   // TODO extract out
   const text = isShowAll ? '收起' : '更多'
-  return <div> {text}</div>
+  const style: CSSProperties = {
+    transform: isShowAll ? 'rotate(180deg)' : 'rotate(0deg)',
+    transition: 'transform 0.3s'
+  }
+  return <div> {text} <ElIcon style={style}><ArrowUp/></ElIcon> </div>
 }
 
 const renderTable = (option: RenderTableOption, children: JSX.Element[]) => {
@@ -75,8 +81,8 @@ const renderTableTextBtAction = (item: ScaffoldTableActionTextBt, param: any) =>
 }
 
 const renderOperateBt  = (item: ScaffoldOperateBtItem, contentFn: GetContentFn) => {
-  const { text, onClick } = item
-  return <ElButton onClick={() => onClick(contentFn())}>{text}</ElButton>
+  const { text, onClick, ...rest } = item
+  return <ElButton onClick={() => onClick(contentFn())} {...rest}>{text}</ElButton>
 } 
 
 const renderOperateConfirmBt = (item: ScaffoldOperateConfirmBtItem, contentFn: GetContentFn) => {
@@ -98,12 +104,12 @@ export const createElementUiRender = (): UiRender => {
     renderQuerySelect,
     renderQueryResetAction,
     renderQueryQueryAction,
+    renderQueryMore,
     renderTable,
     renderTableColumn,
     renderOperateBt,
     renderOperateConfirmBt,
     renderPagination,
-    renderQueryMore,
     renderTableConfirmTextBtAction,
     renderTableTextBtAction
   } 

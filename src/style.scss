@@ -1,9 +1,17 @@
 $distance: 16px;
 $bg: white;
+$moreColor: #3a74f2;
+
+.line {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  width: 45%;
+  top: 50%;
+  border-top: 1px solid #eee;
+}
 
 .scaffold-container {
-  font-size: 20px;
-
   .scaffold-query-container {
     padding: $distance;
     background-color: $bg;
@@ -19,6 +27,7 @@ $bg: white;
             display: inline-flex;
             align-items: center;
             box-sizing: border-box;
+            margin-bottom: $distance;
 
             .label {
               width: 84px;
@@ -35,5 +44,51 @@ $bg: white;
         }
       }
     }
+
+    .more-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      &::before {
+        left: 0;
+
+        @extend .line;
+      }
+
+      &::after {
+        left: 55%;
+
+        @extend .line;
+      }
+
+      .more {
+        cursor: pointer;
+        color: $moreColor;
+      }
+    }
+  }
+
+  .operate-container {
+    padding: $distance;
+    background-color: $bg;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .table-container {
+    padding: $distance;
+    background-color: $bg;
+  }
+
+  .pagination-container {
+    padding: $distance;
+    padding-top: 0;
+    background-color: $bg;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 }

@@ -1,14 +1,38 @@
 <script setup lang="ts">
 import { onMounted, ref, h } from 'vue'
-import { Scaffold, defineScaffoldSchema } from '@sujian/vue-admin-scaffold'
+import { Scaffold, defineScaffoldSchema, defineScaffoldConfig } from '@sujian/vue-admin-scaffold'
 import type { ScaffoldInstance } from '@sujian/vue-admin-scaffold'
 import Test from './Test'
 
+import { fetchTestTableListApi } from './api'
+
 import '@sujian/vue-admin-scaffold/style.scss'
 const scaffoldRef = ref<ScaffoldInstance>()
+defineScaffoldConfig({
+  request: {
+    transform: (data: any) => {
+      const { pageSize, ...rest } = data
+      return {
+        ...rest,
+        limit: pageSize
+      }
+    },
+    adapter: (data: any) => {
+      const { total, data: list } = data
+      return {
+        total,
+        list
+      }
+    }
+  }
+}
+)
 
 const schema = defineScaffoldSchema({
   query: {
+    layout: {
+      showLine: 1
+    },
     forms: [
       {
         __type__: 'input',
@@ -59,6 +83,7 @@ const schema = defineScaffoldSchema({
       {
         __type__: 'bt',
         text: '按钮',
+        type: 'primary',
         onClick: (context: any) => {
           console.log('click', context)
         },
@@ -80,18 +105,18 @@ const schema = defineScaffoldSchema({
     ]
   },
   request: {
-    apiFn: () => Promise.resolve({ list: [{ name: 1 }], total: 0 }) 
+    apiFn: fetchTestTableListApi  
   },
   table: {
     cols: [
       {
         label: '名称',
-        prop: 'name'
+        prop: 'first_name'
       },
       {
         label: '自定义',
         render: (param: any) => {
-          return h('span', `自定义 ${param.row.name}`)
+          return h('span', `自定义 ${param.row.last_name}`)
         }
       }
     ],
