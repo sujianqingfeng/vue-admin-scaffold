@@ -11,7 +11,7 @@ export default defineComponent({
   name: 'ScaffoldQuery',
   setup() {
     const { layout, forms, asyncData, formData, action } = useScaffoldQuery()
-    const { formRef, showCount } = useSize(layout)
+    const { formRef, showCount, getColStyle } = useSize(layout)
 
     const isShowAll = ref(false)
     const isShowMore = computed(() => {
@@ -43,8 +43,8 @@ export default defineComponent({
     }
 
     const renderCols = () => filterForms.value.map(form => {
-      const { label } = form
-      return <div class='col'>
+      const { label, span } = form
+      return <div class='col' style={getColStyle(span!)}>
         <div class='label'>{label}</div>
         <div class='form-item'>
           {renderFormItem(form, { asyncData, formData })}

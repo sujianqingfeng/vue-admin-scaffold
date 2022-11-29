@@ -25,6 +25,7 @@ export const useSize = (layout: Ref<RequiredScaffoldQueryLayout>) => {
 
   const computedSize = () => {
     const width = getRealWidth()
+    
     const size = matchSize(width, layout.value.formItemWidthMap)
     count.value = size    
     itemWidth.value  = 100 / +size 
@@ -33,6 +34,12 @@ export const useSize = (layout: Ref<RequiredScaffoldQueryLayout>) => {
   const showCount = computed(() => {
     return count.value * layout.value.showLine
   })
+
+  const getColStyle = (span: number) => {
+    return {
+      width: `${itemWidth.value * span}%`
+    }
+  }
 
   const getItemWidth = throttle(computedSize, 500, {
     leading: true,
@@ -50,6 +57,7 @@ export const useSize = (layout: Ref<RequiredScaffoldQueryLayout>) => {
 
   return {
     formRef,
-    showCount 
+    showCount,
+    getColStyle 
   }
 }

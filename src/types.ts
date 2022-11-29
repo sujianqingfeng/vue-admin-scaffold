@@ -40,6 +40,7 @@ export type RequiredScaffoldQueryLayout = Required<ScaffoldQueryLayout>
 type ScaffoldQueryCommonForm = {
   label: string
   value?: any
+  span?: number
   show?: (formData: FormData) => boolean
   [index: string]: any
 } 

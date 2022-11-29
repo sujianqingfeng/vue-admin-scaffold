@@ -1,8 +1,9 @@
 $distance: 16px;
 $bg: white;
-$moreColor: #3a74f2;
+$more-color: #3a74f2;
+$operate-bg: rgb(245 245 245 / 70%);
 
-.line {
+%line {
   content: "";
   position: absolute;
   display: inline-block;
@@ -54,25 +55,25 @@ $moreColor: #3a74f2;
       &::before {
         left: 0;
 
-        @extend .line;
+        @extend %line;
       }
 
       &::after {
         left: 55%;
 
-        @extend .line;
+        @extend %line;
       }
 
       .more {
         cursor: pointer;
-        color: $moreColor;
+        color: $more-color;
       }
     }
   }
 
   .operate-container {
     padding: $distance;
-    background-color: $bg;
+    background-color: $operate-bg;
     display: flex;
     align-items: center;
     justify-content: space-between;

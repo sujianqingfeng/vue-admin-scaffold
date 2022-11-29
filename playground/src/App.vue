@@ -2,7 +2,6 @@
 import { onMounted, ref, h } from 'vue'
 import { Scaffold, defineScaffoldSchema, defineScaffoldConfig } from '@sujian/vue-admin-scaffold'
 import type { ScaffoldInstance } from '@sujian/vue-admin-scaffold'
-import Test from './Test'
 
 import { fetchTestTableListApi } from './api'
 
@@ -70,6 +69,7 @@ const schema = defineScaffoldSchema({
       {
         __type__: 'custom',
         key: 'custom',
+        span: 2,
         label: '自定义',
         render: (context) => {
           console.log('custom form item render', context.formData)
@@ -144,7 +144,6 @@ onMounted(() => {
   <div class="app-container">
     <header class="app-header">
       vue-admin-scaffold
-      <test />
     </header>
     <div class="scaffold-container">
       <scaffold ref="scaffoldRef" :schema="schema" />
