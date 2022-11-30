@@ -1,12 +1,12 @@
 import type { UiRender } from '../types'
-import { ElInput, ElSelect, ElOption, ElButton, ElTable, ElTableColumn, ElPopconfirm, ElPagination, ElIcon } from 'element-plus'
+import { ElInput, ElSelect, ElOption, ElButton, ElTable, ElTableColumn, ElPopconfirm, ElPagination, ElIcon, ElLoadingDirective } from 'element-plus'
 import './style'
 import type {  GetContentFn, QueryContext, ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableActionConfirmTextBt, ScaffoldTableActionTextBt, ScaffoldTableCol, ScaffoldTableColWithoutCustom } from '../../types'
 import type { ActionProps } from '../../components/query/types'
 import type { RenderTableOption } from '../../components/table/types'
 import { createDefaultEvent, createWrapperEvent } from '../utils'
 import { ArrowUp  } from '@element-plus/icons-vue'
-import { CSSProperties } from 'vue'
+import { CSSProperties, h, withDirectives } from 'vue'
 
 const renderQueryInput = (form: ScaffoldQueryInputForm, { formData }: QueryContext) => {
   const { key, label } = form 
@@ -47,10 +47,12 @@ const renderQueryMore = (isShowAll: boolean) => {
 }
 
 const renderTable = (option: RenderTableOption, children: JSX.Element[]) => {
-  const { tableRef, dataSource } = option
-  return <ElTable ref={tableRef} data={dataSource.value.list}>
+  const { tableRef, dataSource, loading } = option
+
+  const vNode = <ElTable ref={tableRef} data={dataSource.value.list}>
     {children}
   </ElTable>
+  return withDirectives(vNode, [[ElLoadingDirective, loading.value]])
 }
 
 const renderTableColumn = (col: ScaffoldTableColWithoutCustom, render: ((param: any) => JSX.Element) | null) => {
