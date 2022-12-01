@@ -1,12 +1,13 @@
 import type { UiRender } from '../types'
 import { ElInput, ElSelect, ElOption, ElButton, ElTable, ElTableColumn, ElPopconfirm, ElPagination, ElIcon, ElLoadingDirective } from 'element-plus'
 import './style'
-import type {  GetContentFn, QueryContext, ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableActionConfirmTextBt, ScaffoldTableActionTextBt, ScaffoldTableCol, ScaffoldTableColWithoutCustom } from '../../types'
+import type {  GetContentFn, QueryContext, ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableActionConfirmTextBt, ScaffoldTableActionText, ScaffoldTableActionTextBt, ScaffoldTableCol, ScaffoldTableColWithoutCustom } from '../../types'
 import type { ActionProps } from '../../components/query/types'
 import type { RenderTableOption } from '../../components/table/types'
 import { createDefaultEvent, createWrapperEvent } from '../utils'
 import { ArrowUp  } from '@element-plus/icons-vue'
 import { CSSProperties, h, withDirectives } from 'vue'
+import { isFunction } from 'lodash-es'
 
 const renderQueryInput = (form: ScaffoldQueryInputForm, { formData }: QueryContext) => {
   const { key, label } = form 
@@ -68,18 +69,26 @@ const renderTableColumn = (col: ScaffoldTableColWithoutCustom, render: ((param: 
   </ElTableColumn>
 }
 
+const getTableActionText = (text: ScaffoldTableActionText, param: any): string => {
+  if (isFunction(text)) {
+    return text(param)
+  }
+  return text
+}
+
 const renderTableConfirmTextBtAction = (item: ScaffoldTableActionConfirmTextBt, param: any) => {
   const { text, confirmText, onConfirm } = item
 
   return <ElPopconfirm title={confirmText} onConfirm={() => onConfirm(param)}>
     {{
-      reference: () => <ElButton link>{text}</ElButton>,
+      reference: () => <ElButton link>{getTableActionText(text, param)}</ElButton>,
     }}
   </ElPopconfirm>
 }
+
 const renderTableTextBtAction = (item: ScaffoldTableActionTextBt, param: any) => {
   const { text, onClick } = item
-  return <ElButton link onClick={() => onClick(param)}>{text}</ElButton>
+  return <ElButton link onClick={() => onClick(param)}>{getTableActionText(text, param)}</ElButton>
 }
 
 const renderOperateBt  = (item: ScaffoldOperateBtItem, contentFn: GetContentFn) => {

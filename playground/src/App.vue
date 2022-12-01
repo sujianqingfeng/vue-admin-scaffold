@@ -124,7 +124,7 @@ const schema = defineScaffoldSchema({
       list: [
         {
           __type__: 'text_bt',
-          text: '按钮',
+          text: (param: any) => param.row.first_name === 'George' ? '文本条件显示' : '按钮',
           onClick: (param: any) => {
             console.log('click', param)
           },

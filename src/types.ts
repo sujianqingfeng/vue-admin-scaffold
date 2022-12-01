@@ -122,10 +122,11 @@ type ScaffoldTableActionShow = {
   show?: () => boolean
 }
 
+export type ScaffoldTableActionText = string | ((param: any) => string)
+
 export type ScaffoldTableActionTextBt = {
   __type__: 'text_bt'
-  // TODO function
-  text: string
+  text: ScaffoldTableActionText  
   onClick: (param: any) => void
 }
 
@@ -135,8 +136,7 @@ export type ScaffoldTableActionCustom = Custom & {
 
 export type ScaffoldTableActionConfirmTextBt = {
   __type__: 'confirm_text_bt'
-  // TODO function
-  text: string
+  text: ScaffoldTableActionText  
   confirmText: string
   onConfirm: (param: any) => void
 }
