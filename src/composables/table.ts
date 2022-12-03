@@ -1,8 +1,8 @@
-import deepmerge from 'deepmerge'
 import { inject, provide, ref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
 import type { ScaffoldTable } from '../types'
 import { config } from '../config'
+import { merge } from 'lodash-es'
 
 export type InjectTable = {
   table: Ref<ScaffoldTable>,
@@ -15,7 +15,7 @@ export const useProvideScaffoldTable = (_table: ScaffoldTable) => {
 
   const formatTable = (table: ScaffoldTable) => {
     const { table: defaultTable } = config
-    return deepmerge(defaultTable, table)
+    return merge(defaultTable, table)
   }
 
   const tableInject: InjectTable = {

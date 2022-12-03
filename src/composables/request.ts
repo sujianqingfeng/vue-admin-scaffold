@@ -1,4 +1,3 @@
-import deepmerge from 'deepmerge'
 import { ref, provide, inject } from 'vue'
 import type { Ref, InjectionKey } from 'vue'
 
@@ -6,6 +5,7 @@ import type { DataSource, ScaffoldRequest } from 'src/types'
 import { config } from '../config'
 import type { InjectPagination } from './pagination'
 import type { FormDataRef } from './query'
+import { merge } from 'lodash-es'
 
 export type InjectRequest = {
   fetchList: () => void,
@@ -25,7 +25,7 @@ export const useProvideScaffoldRequest  = (_request: ScaffoldRequest, formData: 
 
   const formatRequest = (request: ScaffoldRequest) => {
     const { request: defaultRequest } = config
-    return deepmerge(defaultRequest, request)
+    return merge(defaultRequest, request)
   }
   const request = ref(formatRequest(_request))
 

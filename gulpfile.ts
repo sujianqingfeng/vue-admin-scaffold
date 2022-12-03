@@ -137,7 +137,7 @@ async function buildModules() {
       }),
       commonjs()
     ],
-    external: ['vue', '@sujian/utils', 'deepmerge']
+    external: ['vue', '@sujian/utils']
   })
 
   await writeBundles(bundle, [

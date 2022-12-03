@@ -1,4 +1,4 @@
-import deepmerge from 'deepmerge'
+import { merge } from 'lodash-es'
 import type { DeepPartial, ScaffoldSchema } from './types'
 import { createElementUiRender } from './renders'
 
@@ -66,7 +66,7 @@ export const defaultConfig  = defineScaffoldSchema<Required<ScaffoldSchema>>({
 })
 
 export const defineScaffoldConfig = (_config: DeepPartial<ScaffoldSchema>) => {
-  config = deepmerge(defaultConfig, _config) 
+  config = merge(defaultConfig, _config) 
 }
 
 export let config: Required<ScaffoldSchema> = defaultConfig
