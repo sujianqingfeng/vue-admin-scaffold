@@ -170,21 +170,25 @@ export type OperateContext = {
 }
 
 export type GetContentFn = () => OperateContext 
+export type OperateShow = (formData: FormData ) => boolean
 
 export type ScaffoldOperateBtItem = {
   __type__: 'bt'
   text: string
+  show?: OperateShow
   onClick: (context: OperateContext ) => void
   [key: string]: any
 }
 
 export type ScaffoldOperateCustomItem = {
   __type__: 'custom'
+  show?: OperateShow
 } & Custom<OperateContext> 
 
 export type ScaffoldOperateConfirmBtItem = {
   __type__: 'confirm_bt'
   text: string
+  show?: OperateShow
   confirmText: string
   onConfirm: (context: OperateContext) => void
   [key: string]: any
