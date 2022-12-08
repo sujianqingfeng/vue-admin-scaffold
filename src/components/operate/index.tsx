@@ -25,17 +25,29 @@ export default defineComponent({
       }
     }
 
+    const propsToRender = (item: ScaffoldOperateItem) => renderOperateItem(item, createOperateContent)
+
     const leftNodes  = ref<JSX.Element[]>([])
+    const rightNodes  = ref<JSX.Element[]>([])
 
     watchEffect(() => {
-      leftNodes .value = operate!.value.left!
+      leftNodes.value = operate!.value.left!
         .filter(filterOperate)
-        .map((item) => renderOperateItem(item, createOperateContent))
+        .map(propsToRender)
+    })
+
+    watchEffect(() => {
+      rightNodes.value = operate!.value.right!
+        .filter(filterOperate)
+        .map(propsToRender)
     })
   
     return () => <div class='operate-container'>
       <div class="operate-left-container">
         {leftNodes.value}
+      </div>
+      <div class="operate-right-container">
+        {rightNodes.value}
       </div>
     </div>
   }

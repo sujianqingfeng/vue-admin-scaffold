@@ -103,6 +103,16 @@ const schema = defineScaffoldSchema({
           return h('span', '自定义')
         }
       }
+    ],
+    right: [
+      {
+        __type__: 'bt',
+        text: '按钮',
+        type: 'primary',
+        onClick: (context: any) => {
+          console.log('click', context)
+        },
+      },
     ]
   },
   request: {
