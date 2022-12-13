@@ -92,6 +92,7 @@ const schema = defineScaffoldSchema({
         __type__: 'confirm_bt',
         text: '确认按钮',
         confirmText: '确认?',
+        show: (formData: any) => formData.select === '1',
         onConfirm: () => {
           console.log('confirm')
         }
@@ -102,6 +103,16 @@ const schema = defineScaffoldSchema({
           return h('span', '自定义')
         }
       }
+    ],
+    right: [
+      {
+        __type__: 'bt',
+        text: '按钮',
+        type: 'primary',
+        onClick: (context: any) => {
+          console.log('click', context)
+        },
+      },
     ]
   },
   request: {
