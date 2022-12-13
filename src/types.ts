@@ -3,6 +3,9 @@ import type { Ref } from 'vue'
 
 export type WithRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
 export type DeepPartial<T> = Partial<{ [P in keyof T]: DeepPartial<T[P]> }>;
+export type DeepRequired<T> = {
+  [K in keyof T]: Required<DeepRequired<T[K]>>
+}
 
 type Value =  string | number | boolean | null
 
@@ -119,22 +122,22 @@ export type ScaffoldPagination = {
 // --- table ---
 
 type ScaffoldTableActionShow = {
-  show?: () => boolean
+  show?: (param: any) => boolean
 }
 
 export type ScaffoldTableActionText = string | ((param: any) => string)
 
-export type ScaffoldTableActionTextBt = {
+export type ScaffoldTableActionTextBt =ScaffoldTableActionShow  & {
   __type__: 'text_bt'
   text: ScaffoldTableActionText  
   onClick: (param: any) => void
 }
 
-export type ScaffoldTableActionCustom = Custom & {
+export type ScaffoldTableActionCustom = Custom & ScaffoldTableActionShow & {
   __type__: 'custom'
 }
 
-export type ScaffoldTableActionConfirmTextBt = {
+export type ScaffoldTableActionConfirmTextBt = ScaffoldTableActionShow &{
   __type__: 'confirm_text_bt'
   text: ScaffoldTableActionText  
   confirmText: string

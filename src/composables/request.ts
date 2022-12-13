@@ -23,11 +23,11 @@ export const useProvideScaffoldRequest  = (_request: ScaffoldRequest, formData: 
     total: 0
   })
 
-  const formatRequest = (request: ScaffoldRequest) => {
+  const resolveRequestConfig = (request: ScaffoldRequest) => {
     const { request: defaultRequest } = config
     return merge(defaultRequest, request)
   }
-  const request = ref(formatRequest(_request))
+  const request = ref(resolveRequestConfig(_request))
 
   const fetchList = () => {
     const { apiFn, adapter, transform, onSuccess, onError } = request.value

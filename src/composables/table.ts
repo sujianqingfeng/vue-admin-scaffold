@@ -9,17 +9,16 @@ export type InjectTable = {
   tableRef: Ref<any>
 } 
 
-const TABLE_KEY: InjectionKey<InjectTable> = Symbol('table-key')
+const resolveTableConfig = (table: ScaffoldTable) => {
+  const { table: defaultTable } = config
+  return merge(defaultTable, table)
+}
 
+const TABLE_KEY: InjectionKey<InjectTable> = Symbol('table-key')
 export const useProvideScaffoldTable = (_table: ScaffoldTable) => {
 
-  const formatTable = (table: ScaffoldTable) => {
-    const { table: defaultTable } = config
-    return merge(defaultTable, table)
-  }
-
   const tableInject: InjectTable = {
-    table: ref(formatTable(_table)),
+    table: ref(resolveTableConfig(_table)),
     tableRef: ref(null)
   } 
 

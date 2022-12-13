@@ -114,6 +114,10 @@ const schema = defineScaffoldSchema({
         prop: 'first_name'
       },
       {
+        label: 'last',
+        prop: 'last_name',
+      },
+      {
         label: '自定义',
         render: (param: any) => {
           return h('span', `自定义 ${param.row.last_name}`)
@@ -128,6 +132,15 @@ const schema = defineScaffoldSchema({
           onClick: (param: any) => {
             console.log('click', param)
           },
+        },
+        {
+          __type__: 'confirm_text_bt',
+          text: 'confirm',
+          confirmText: '确认?',
+          show: (param: any) => param.row.first_name === 'Janet',
+          onConfirm: () => {
+            console.log('confirm')
+          }
         }
       ]
     }

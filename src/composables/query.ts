@@ -13,12 +13,12 @@ type InjectQuery = {
   action: Ref<RequiredScaffoldQueryAction>
 } 
 
-const formatLayout = (layout: ScaffoldQueryLayout): RequiredScaffoldQueryLayout => {
+const resolveLayoutConfig = (layout: ScaffoldQueryLayout): RequiredScaffoldQueryLayout => {
   const { query: { layout: defaultLayout } } = config
   return  { ...defaultLayout, ...layout } as RequiredScaffoldQueryLayout 
 }
 
-const formatForms = (forms: ScaffoldQueryForm[], layout: Ref<RequiredScaffoldQueryLayout>) => {
+const resolveFormsConfig = (forms: ScaffoldQueryForm[], layout: Ref<RequiredScaffoldQueryLayout>) => {
   const data: ScaffoldQueryForm[] = []
 
   forms.forEach(form => {
@@ -32,7 +32,7 @@ const formatForms = (forms: ScaffoldQueryForm[], layout: Ref<RequiredScaffoldQue
   return data
 }
 
-const formatAction = (action: ScaffoldQueryActon): RequiredScaffoldQueryAction  => {
+const resolveActionConfig = (action: ScaffoldQueryActon): RequiredScaffoldQueryAction  => {
   const { query: { action: defaultAction } } = config
   return { ...defaultAction, ...action } as RequiredScaffoldQueryAction 
 }
@@ -112,11 +112,11 @@ const QUERY_KEY: InjectionKey<InjectQuery> = Symbol('query-layout-key')
 export const useProvideScaffoldQuery = (query: ScaffoldQuery) => {
   const forms = query.forms || []
 
-  const layout = ref(formatLayout(query.layout || {})) 
+  const layout = ref(resolveLayoutConfig(query.layout || {})) 
   const formData = ref(generateFormData(forms))
   const { asyncData, fetchAsyncData } = useFetchAsyncData(forms, formData)
-  const finalForms = formatForms(forms, layout)
-  const action = ref(formatAction(query.action || {}))
+  const finalForms = resolveFormsConfig(forms, layout)
+  const action = ref(resolveActionConfig(query.action || {}))
 
   const injectData: InjectQuery = { layout, formData, asyncData, forms: finalForms, action }
 

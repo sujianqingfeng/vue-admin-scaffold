@@ -1,12 +1,12 @@
 import { merge } from 'lodash-es'
-import type { DeepPartial, ScaffoldSchema } from './types'
+import type { DeepPartial, DeepRequired, ScaffoldSchema } from './types'
 import { createElementUiRender } from './renders'
 
 export const defineScaffoldSchema = <T extends ScaffoldSchema>(config: T): T => {
   return config
 }
 
-export const defaultConfig  = defineScaffoldSchema<Required<ScaffoldSchema>>({
+export const defaultConfig: DeepRequired<ScaffoldSchema>  = {
   uiRender: createElementUiRender(),
   query: {
     layout: {
@@ -48,8 +48,8 @@ export const defaultConfig  = defineScaffoldSchema<Required<ScaffoldSchema>>({
   request: {
     auto: true,
     apiFn: () => Promise.resolve({ total: 0, list: [] }),
-    transform: (val) => val,
-    adapter: (val) => val,
+    transform: (val: any) => val,
+    adapter: (val: any) => val,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onSuccess: () => {},
     // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -63,10 +63,10 @@ export const defaultConfig  = defineScaffoldSchema<Required<ScaffoldSchema>>({
     },
     cols: []
   }
-})
+}
 
 export const defineScaffoldConfig = (_config: DeepPartial<ScaffoldSchema>) => {
   config = merge(defaultConfig, _config) 
 }
 
-export let config: Required<ScaffoldSchema> = defaultConfig
+export let config: DeepRequired<ScaffoldSchema> = defaultConfig

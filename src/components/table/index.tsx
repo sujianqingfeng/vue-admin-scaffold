@@ -3,6 +3,7 @@ import { useScaffoldTable } from '../../composables/table'
 import { useScaffoldRequest } from '../../composables/request'
 import { renderTable, renderTableAction, renderTableColumn  } from './render'
 import type { ScaffoldTableActionItem, ScaffoldTableCol } from '../../types'
+import { filter, isFunction } from 'lodash-es'
 
 export default defineComponent({
   
@@ -20,6 +21,13 @@ export default defineComponent({
 
     const renderActions = (actions: ScaffoldTableActionItem[], param: any) => {
       const list = actions
+        .filter(active => {
+          const { show } = active
+          if (!isFunction(show)) {
+            return true
+          }
+          return show(param) 
+        })
         .map(action => {
           return renderTableAction(action, param)
         })

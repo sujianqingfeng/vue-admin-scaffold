@@ -10,12 +10,12 @@ const OPERATE_KEY: InjectionKey<InjectOperate> = Symbol('pagination-key')
 
 export const useProvideScaffoldOperate = (_operate: ScaffoldOperate) => {
 
-  const formatOperate = (operate: ScaffoldOperate) => {
+  const resolveOperateConfig = (operate: ScaffoldOperate) => {
     const  { operate: defaultOperate } = config
     return  merge(defaultOperate, operate)
   }
 
-  const injectData = ref(formatOperate(_operate))
+  const injectData = ref(resolveOperateConfig(_operate))
 
   provide(OPERATE_KEY, injectData)
   return injectData
