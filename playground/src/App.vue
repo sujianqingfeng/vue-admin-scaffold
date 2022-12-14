@@ -127,6 +127,7 @@ const schema = defineScaffoldSchema({
       {
         label: 'last',
         prop: 'last_name',
+        show: (formData: any) => formData.select === '1',
       },
       {
         label: '自定义',
