@@ -6,7 +6,7 @@ import type { ActionProps } from '../../components/query/types'
 import type { RenderTableOption } from '../../components/table/types'
 import { createDefaultEvent, createWrapperEvent } from '../utils'
 import { ArrowUp  } from '@element-plus/icons-vue'
-import { CSSProperties, h, withDirectives } from 'vue'
+import { CSSProperties, withDirectives } from 'vue'
 import { isFunction } from 'lodash-es'
 
 const renderQueryInput = (form: ScaffoldQueryInputForm, { formData }: QueryContext) => {

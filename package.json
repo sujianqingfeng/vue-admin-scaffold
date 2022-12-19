@@ -7,6 +7,7 @@
   "keywords": [],
   "scripts": {
     "build": "gulp --require @esbuild-kit/cjs-loader",
+    "build2": "node -r @esbuild-kit/cjs-loader scripts/build.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:style": "stylelint .",

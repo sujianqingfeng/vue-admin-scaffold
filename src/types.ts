@@ -156,10 +156,11 @@ type ScaffoldTableAction = {
 
 export type  ScaffoldTableColWithoutCustom = {
   [key: string]: any
-  show?: (formData: FormData) => boolean
 }
 
-export type ScaffoldTableCol = Custom & ScaffoldTableColWithoutCustom 
+export type ScaffoldTableCol = Custom & ScaffoldTableColWithoutCustom  & {
+  show?: (formData: FormData) => boolean
+}
 
 export type ScaffoldTable = {
   action?: ScaffoldTableAction
