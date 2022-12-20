@@ -1,6 +1,6 @@
 import { inject, provide, ref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
-import type { AsyncDataRef, AsyncQueryFormTypes, FormData, FormDataRef, RequiredScaffoldQueryAction, RequiredScaffoldQueryLayout, ScaffoldQuery, ScaffoldQueryActon, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryLayout, ScaffoldQuerySelectForm } from '../types'
+import type { AsyncDataRef, AsyncQueryFormTypes, FormData, FormDataRef, RequiredScaffoldQueryAction, RequiredScaffoldQueryLayout, ScaffoldQuery, ScaffoldQueryActon, ScaffoldQueryForm, ScaffoldQueryLayout, ScaffoldQuerySelectForm } from 'types'
 import { isArray, isFunction, isString } from '@sujian/utils'
 import { config } from '../config'
 import { generateKey } from '../utils'

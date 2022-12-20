@@ -1,4 +1,4 @@
-import type { QueryContext, RequiredScaffoldQueryAction, ScaffoldQueryAddExtraParamsForm, ScaffoldQueryCustomForm, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryInputForm, ScaffoldQuerySelectForm } from '../../types'
+import type { QueryContext, RequiredScaffoldQueryAction, ScaffoldQueryAddExtraParamsForm, ScaffoldQueryCustomForm, ScaffoldQueryForm, ScaffoldQueryFormTypes, ScaffoldQueryInputForm, ScaffoldQuerySelectForm } from 'types'
 import { config } from '../../config'
 import type { ActionProps } from './types'
 import RenderOrSlot from '../render-or-slot'

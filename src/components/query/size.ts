@@ -1,7 +1,7 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import type { Ref } from 'vue'
 import { throttle } from 'lodash-es'
-import type { FormItemWidthMap, RequiredScaffoldQueryLayout } from 'src/types'
+import type { FormItemWidthMap, RequiredScaffoldQueryLayout } from 'types'
 
 const matchSize = (width: number, widthMap: FormItemWidthMap) => {
   for (const [size, values] of Object.entries(widthMap)) {

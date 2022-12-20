@@ -1,7 +1,7 @@
 import { defineComponent, ref, VNode, watchEffect } from 'vue'
-import { useScaffoldQuery, useScaffoldTable, useScaffoldRequest  } from '../../composables'
+import { useScaffoldQuery, useScaffoldTable, useScaffoldRequest  } from '@composables'
 import { renderTable, renderTableAction, renderTableColumn  } from './render'
-import type { ScaffoldTableActionItem, ScaffoldTableCol } from '../../types'
+import type { ScaffoldTableActionItem, ScaffoldTableCol } from 'types'
 import { isFunction } from 'lodash-es'
 
 export default defineComponent({

@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { defaultConfig } from './config'
-import { ScaffoldSchema } from './types'
+import { ScaffoldSchema } from 'types'
 
 export const props = {
   schema: {

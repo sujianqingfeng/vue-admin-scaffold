@@ -1,5 +1,5 @@
 import { merge } from 'lodash-es'
-import type { ScaffoldPagination } from 'src/types'
+import type { ScaffoldPagination } from 'types'
 import type {  InjectionKey, Ref } from 'vue'
 import { ref, provide, inject  } from 'vue'
 import { config } from '../config'

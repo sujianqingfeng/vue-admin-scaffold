@@ -14,8 +14,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "rootDir": ".",
-    "baseUrl": ".",
-    "composite": true
+    "baseUrl": "src",
+    "composite": true,
+    "paths": {
+      "@components/*": ["components/*"],
+      "@composables": ["composables/index.ts"],
+      "@config": ["config.ts"]
+    }
   },
   "exclude": [
     "dist",

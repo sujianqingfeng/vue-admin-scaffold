@@ -1,11 +1,8 @@
-import { useScaffoldQuery } from '../../composables/query'
+import { useScaffoldQuery } from '@composables'
 import { computed, defineComponent, ref } from 'vue'
-import createDebug from 'debug'
 import { renderFormItem, renderQuery, renderReset, isAddExtraParams, renderMore  } from './render'
 import { useSize } from './size'
-import type { ScaffoldQueryAddExtraParamsForm, ScaffoldQueryForm } from 'src/types'
-
-const debug  = createDebug('scaffold:components:query')
+import type { ScaffoldQueryAddExtraParamsForm, ScaffoldQueryForm } from 'types'
 
 export default defineComponent({
   name: 'ScaffoldQuery',

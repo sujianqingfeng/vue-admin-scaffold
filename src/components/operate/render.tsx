@@ -1,5 +1,5 @@
-import type { GetContentFn,  ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldOperateCustomItem, ScaffoldOperateItem, ScaffoldOperateTypes } from 'src/types'
-import { config } from '../../config'
+import type { GetContentFn,  ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldOperateCustomItem, ScaffoldOperateItem, ScaffoldOperateTypes } from 'types'
+import { config } from '@config'
 import RenderOrSlot from '../render-or-slot'
 
 const { uiRender } = config

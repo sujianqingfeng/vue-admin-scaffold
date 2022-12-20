@@ -209,10 +209,10 @@ export type ScaffoldOperate = {
 
 // --- main ---
 export interface ScaffoldSchema {
-  uiRender?: UiRender
+  uiRender: UiRender
   query: ScaffoldQuery
   request: ScaffoldRequest
-  pagination?: ScaffoldPagination
+  pagination: ScaffoldPagination
   table: ScaffoldTable
   operate?: ScaffoldOperate
 }

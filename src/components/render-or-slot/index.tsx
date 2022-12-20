@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 import type { PropType } from 'vue'
-import type { Custom } from 'src/types'
-import { useScaffoldSlots } from '../../composables'
+import type { Custom } from 'types'
+import { useScaffoldSlots } from '@composables'
 
 export default defineComponent({
   props: {

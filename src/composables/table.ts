@@ -1,6 +1,6 @@
 import { inject, provide, ref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
-import type { ScaffoldTable } from '../types'
+import type { ScaffoldTable } from 'types'
 import { config } from '../config'
 import { merge } from 'lodash-es'
 

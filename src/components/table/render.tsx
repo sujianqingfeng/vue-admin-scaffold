@@ -1,4 +1,4 @@
-import type { Custom, ScaffoldTableActionConfirmTextBt, ScaffoldTableActionCustom, ScaffoldTableActionItem, ScaffoldTableActionTextBt, ScaffoldTableActionTypes, ScaffoldTableCol } from '../../types'
+import type { Custom, ScaffoldTableActionConfirmTextBt, ScaffoldTableActionCustom, ScaffoldTableActionItem, ScaffoldTableActionTextBt, ScaffoldTableActionTypes, ScaffoldTableCol } from 'types'
 import type { RenderTableOption } from './types'
 import { config } from '../../config'
 import RenderOrSlot from '../render-or-slot'

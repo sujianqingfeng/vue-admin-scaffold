@@ -1,4 +1,4 @@
-import type { ScaffoldOperate } from 'src/types'
+import type { ScaffoldOperate } from 'types'
 import { ref, provide, inject } from 'vue'
 import type {  InjectionKey,  Ref } from 'vue'
 import { config } from '../config'

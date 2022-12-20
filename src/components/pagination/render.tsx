@@ -1,4 +1,4 @@
-import { ScaffoldPagination } from 'src/types'
+import { ScaffoldPagination } from 'types'
 
 import { config } from '../../config'
 

@@ -9,8 +9,9 @@ import {
   useProvideScaffoldRequest,
   useProvideScaffoldTable,
   useProvideScaffoldOperate,
-  useProvideScaffoldSlots
-} from './composables'
+  useProvideScaffoldSlots,
+  useProvideScaffoldUIRender
+} from '@composables'
 
 export default defineComponent({
   name: 'Scaffold',
@@ -24,6 +25,7 @@ export default defineComponent({
     useProvideScaffoldRequest(props.schema.request || {}, formData, pagination)
     useProvideScaffoldTable(props.schema.table || {})
     useProvideScaffoldSlots()
+    useProvideScaffoldUIRender()
 
     expose({
       formData,

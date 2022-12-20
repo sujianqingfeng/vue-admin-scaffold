@@ -1,6 +1,6 @@
-import { useScaffoldPagination } from '../../composables'
+import { useScaffoldPagination } from '@composables'
 import { defineComponent } from 'vue'
-import { renderPagination } from './redner'
+import { renderPagination } from './render'
 
 export default defineComponent({
   name: 'Pagination',

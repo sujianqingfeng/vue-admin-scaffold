@@ -1,7 +1,7 @@
 import {  defineComponent, ref, watchEffect } from 'vue'
 import { renderOperateItem } from './render'
-import type { OperateContext, ScaffoldOperateItem } from 'src/types'
-import { useScaffoldTable, useScaffoldOperate, useScaffoldQuery  } from '../../composables'
+import type { OperateContext, ScaffoldOperateItem } from 'types'
+import { useScaffoldTable, useScaffoldOperate, useScaffoldQuery  } from '@composables'
 
 export default defineComponent({
   name: 'Operate',

@@ -1,12 +1,13 @@
 import { merge } from 'lodash-es'
-import type { DeepPartial, DeepRequired, ScaffoldSchema } from './types'
+import type { DeepPartial, DeepRequired, ScaffoldSchema } from 'types'
 import { createElementUiRender } from './renders'
 
 export const defineScaffoldSchema = <T extends ScaffoldSchema>(config: T): T => {
   return config
 }
 
-export const defaultConfig: DeepRequired<ScaffoldSchema>  = {
+// export const defaultConfig: DeepRequired<ScaffoldSchema>  = {
+export const defaultConfig: ScaffoldSchema  = {
   uiRender: createElementUiRender(),
   query: {
     layout: {
@@ -69,4 +70,8 @@ export const defineScaffoldConfig = (_config: DeepPartial<ScaffoldSchema>) => {
   config = merge(defaultConfig, _config) 
 }
 
-export let config: DeepRequired<ScaffoldSchema> = defaultConfig
+// export let config: DeepRequired<ScaffoldSchema> = defaultConfig
+export let config: ScaffoldSchema = defaultConfig
+
+export const getConfig = () => config
+
