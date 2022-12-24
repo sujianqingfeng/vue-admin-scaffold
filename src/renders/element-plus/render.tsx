@@ -1,7 +1,7 @@
-import type { UiRender } from '../types'
+import type { ScaffoldUiRender } from 'types'
 import { ElInput, ElSelect, ElOption, ElButton, ElTable, ElTableColumn, ElPopconfirm, ElPagination, ElIcon, ElLoadingDirective } from 'element-plus'
 import './style'
-import type {  GetContentFn, QueryContext, ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableActionConfirmTextBt, ScaffoldTableActionText, ScaffoldTableActionTextBt, ScaffoldTableCol, ScaffoldTableColWithoutCustom } from '../../types'
+import type {  GetContentFn, QueryContext, ScaffoldOperateBtItem, ScaffoldOperateConfirmBtItem, ScaffoldPagination, ScaffoldQueryInputForm, ScaffoldQuerySelectForm, ScaffoldTableActionConfirmTextBt, ScaffoldTableActionText, ScaffoldTableActionTextBt,  ScaffoldTableColWithoutCustom } from '../../types'
 import type { ActionProps } from '../../components/query/types'
 import type { RenderTableOption } from '../../components/table/types'
 import { createDefaultEvent, createWrapperEvent } from '../utils'
@@ -109,7 +109,7 @@ const renderPagination = (pagination: ScaffoldPagination) => {
   return <ElPagination {...pagination}></ElPagination>
 }
 
-export const createElementUiRender = (): UiRender => {
+export const createElementUiRender = (): ScaffoldUiRender => {
   return {
     renderQueryInput,
     renderQuerySelect,

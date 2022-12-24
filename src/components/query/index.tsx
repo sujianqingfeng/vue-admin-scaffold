@@ -35,7 +35,7 @@ export default defineComponent({
       return forms
     })
 
-    const toggle = () => {
+    const toggle: any = () => {
       isShowAll.value = !isShowAll.value
     }
 

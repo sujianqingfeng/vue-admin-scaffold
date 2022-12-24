@@ -1,7 +1,7 @@
 import {  defineComponent, ref, watchEffect } from 'vue'
-import { renderOperateItem } from './render'
+import { createOperateItemRender } from './render'
 import type { OperateContext, ScaffoldOperateItem } from 'types'
-import { useScaffoldTable, useScaffoldOperate, useScaffoldQuery  } from '@composables'
+import { useScaffoldTable, useScaffoldOperate, useScaffoldQuery, useScaffoldUIRender  } from '@composables'
 
 export default defineComponent({
   name: 'Operate',
@@ -9,6 +9,7 @@ export default defineComponent({
     const operate = useScaffoldOperate()
     const { tableRef } = useScaffoldTable()
     const { formData } = useScaffoldQuery()
+    const uiRender = useScaffoldUIRender()
 
     const filterOperate = (item: ScaffoldOperateItem) => {
       const { show } = item
@@ -25,7 +26,7 @@ export default defineComponent({
       }
     }
 
-    const propsToRender = (item: ScaffoldOperateItem) => renderOperateItem(item, createOperateContent)
+    const renderOperateItem = createOperateItemRender(uiRender, createOperateContent)
 
     const leftNodes  = ref<JSX.Element[]>([])
     const rightNodes  = ref<JSX.Element[]>([])
@@ -33,13 +34,13 @@ export default defineComponent({
     watchEffect(() => {
       leftNodes.value = operate!.value.left!
         .filter(filterOperate)
-        .map(propsToRender)
+        .map(renderOperateItem)
     })
 
     watchEffect(() => {
       rightNodes.value = operate!.value.right!
         .filter(filterOperate)
-        .map(propsToRender)
+        .map(renderOperateItem)
     })
   
     return () => <div class='operate-container'>

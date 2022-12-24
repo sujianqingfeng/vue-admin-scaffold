@@ -1,5 +1,5 @@
-import type { UiRender } from './renders/types'
 import type { Ref } from 'vue'
+import { InjectRequest, InjectTable } from '@composables'
 
 export type WithRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
 export type DeepPartial<T> = Partial<{ [P in keyof T]: DeepPartial<T[P]> }>;
@@ -207,9 +207,33 @@ export type ScaffoldOperate = {
   right?: ScaffoldOperateItem[]
 }
 
+// ui render
+
+export type ActionProps = {
+  onClick: () => void
+  class: string
+}
+
+export type RenderTableOption =Pick<InjectTable, 'tableRef'> &  Pick<InjectRequest, 'loading' | 'dataSource'>
+
+export type ScaffoldUiRender = {
+  renderQueryInput: (form: ScaffoldQueryInputForm, context: QueryContext) => JSX.Element
+  renderQuerySelect: (form: ScaffoldQuerySelectForm, context: QueryContext) => JSX.Element
+  renderQueryResetAction: (props: ActionProps, text: string) => JSX.Element
+  renderQueryQueryAction: (props: ActionProps, text: string) => JSX.Element
+  renderQueryMore: (isShowAll: boolean) => JSX.Element
+  renderTable: (option: RenderTableOption, children: JSX.Element[]) => JSX.Element
+  renderTableColumn: (col: ScaffoldTableCol, render: ((param: any) => JSX.Element )| null) => JSX.Element
+  renderOperateBt: (operate: ScaffoldOperateBtItem, contentFn: GetContentFn) => JSX.Element
+  renderOperateConfirmBt: (operate: ScaffoldOperateConfirmBtItem, contentFn: GetContentFn) => JSX.Element
+  renderPagination: (pagination: ScaffoldPagination) => JSX.Element
+  renderTableTextBtAction: (operate: ScaffoldTableActionTextBt, param: any) => JSX.Element
+  renderTableConfirmTextBtAction: (operate: ScaffoldTableActionConfirmTextBt, param: any) => JSX.Element
+}
+
 // --- main ---
 export interface ScaffoldSchema {
-  uiRender: UiRender
+  uiRender: ScaffoldUiRender
   query: ScaffoldQuery
   request: ScaffoldRequest
   pagination: ScaffoldPagination

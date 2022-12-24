@@ -1,6 +1,6 @@
 import { defineComponent, ref, VNode, watchEffect } from 'vue'
-import { useScaffoldQuery, useScaffoldTable, useScaffoldRequest  } from '@composables'
-import { renderTable, renderTableAction, renderTableColumn  } from './render'
+import { useScaffoldQuery, useScaffoldTable, useScaffoldRequest, useScaffoldUIRender  } from '@composables'
+import { crateTableActionRender, renderTable, renderTableColumn  } from './render'
 import type { ScaffoldTableActionItem, ScaffoldTableCol } from 'types'
 import { isFunction } from 'lodash-es'
 
@@ -10,6 +10,7 @@ export default defineComponent({
     const { table, tableRef } = useScaffoldTable()
     const { loading, dataSource } = useScaffoldRequest()
     const { formData } = useScaffoldQuery()
+    const uiRender = useScaffoldUIRender()
 
     const columnVNodes = ref<VNode[]>([])
 
@@ -22,13 +23,9 @@ export default defineComponent({
     }
 
     const renderCols = (cols: ScaffoldTableCol[]) => {
-      const list = cols
+      return cols
         .filter(filterCol)
-        .map((col) => {
-          return renderTableColumn(col) 
-        })
-
-      return list 
+        .map(renderTableColumn)
     } 
 
     const createFilterAction = (param: any) => {
@@ -42,12 +39,9 @@ export default defineComponent({
     }
 
     const renderActions = (actions: ScaffoldTableActionItem[], param: any) => {
-      const list = actions
+      return actions
         .filter(createFilterAction(param))
-        .map(action => {
-          return renderTableAction(action, param)
-        })
-      return list
+        .map(crateTableActionRender(uiRender, param))
     }
 
     watchEffect(() => {
