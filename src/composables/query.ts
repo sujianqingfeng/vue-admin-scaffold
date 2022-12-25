@@ -2,8 +2,8 @@ import { inject, provide, ref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
 import type { AsyncDataRef, AsyncQueryFormTypes, FormData, FormDataRef, RequiredScaffoldQueryAction, RequiredScaffoldQueryLayout, ScaffoldQuery, ScaffoldQueryActon, ScaffoldQueryForm, ScaffoldQueryLayout, ScaffoldQuerySelectForm } from 'types'
 import { isArray, isFunction, isString } from '@sujian/utils'
-import { config } from '../config'
 import { generateKey } from '../utils'
+import { getConfig } from '@config'
 
 type InjectQuery = {
   layout: Ref<RequiredScaffoldQueryLayout>
@@ -14,7 +14,7 @@ type InjectQuery = {
 } 
 
 const resolveLayoutConfig = (layout: ScaffoldQueryLayout): RequiredScaffoldQueryLayout => {
-  const { query: { layout: defaultLayout } } = config
+  const { query: { layout: defaultLayout } } = getConfig() 
   return  { ...defaultLayout, ...layout } as RequiredScaffoldQueryLayout 
 }
 
@@ -33,7 +33,7 @@ const resolveFormsConfig = (forms: ScaffoldQueryForm[], layout: Ref<RequiredScaf
 }
 
 const resolveActionConfig = (action: ScaffoldQueryActon): RequiredScaffoldQueryAction  => {
-  const { query: { action: defaultAction } } = config
+  const { query: { action: defaultAction } } = getConfig() 
   return { ...defaultAction, ...action } as RequiredScaffoldQueryAction 
 }
 

@@ -1,8 +1,8 @@
+import { getConfig } from '@config'
 import { merge } from 'lodash-es'
 import type { ScaffoldPagination } from 'types'
 import type {  InjectionKey, Ref } from 'vue'
 import { ref, provide, inject  } from 'vue'
-import { config } from '../config'
 
 export type InjectPagination = {
   pagination: Ref<Required<ScaffoldPagination>>
@@ -10,7 +10,7 @@ export type InjectPagination = {
 } 
 
 const resolvePaginationConfig = (pagination: ScaffoldPagination) => {
-  const { pagination: defaultPagination } = config
+  const { pagination: defaultPagination } = getConfig() 
   return merge(defaultPagination, pagination)
 }
 
@@ -21,8 +21,7 @@ export const useProvideScaffoldPagination = (_pagination: ScaffoldPagination) =>
   const pagination = ref(resolvePaginationConfig(_pagination))
 
   const resetPagination = () => {
-    const defaultPagination  = config.pagination as Required<ScaffoldPagination>
-    pagination.value = defaultPagination 
+    pagination.value = resolvePaginationConfig(_pagination) 
   }
 
   const injectPagination: InjectPagination = {

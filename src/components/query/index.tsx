@@ -1,6 +1,6 @@
-import { useScaffoldQuery } from '@composables'
+import { useScaffoldQuery, useScaffoldUIRender } from '@composables'
 import { computed, defineComponent, ref } from 'vue'
-import { renderFormItem, renderQuery, renderReset, isAddExtraParams, renderMore  } from './render'
+import {  createFormRender, isAddExtraParams } from './render'
 import { useSize } from './size'
 import type { ScaffoldQueryAddExtraParamsForm, ScaffoldQueryForm } from 'types'
 
@@ -9,6 +9,7 @@ export default defineComponent({
   setup() {
     const { layout, forms, asyncData, formData, action } = useScaffoldQuery()
     const { formRef, showCount, getColStyle } = useSize(layout)
+    const uiRender = useScaffoldUIRender()
 
     const isShowAll = ref(false)
     const isShowMore = computed(() => {
@@ -24,7 +25,7 @@ export default defineComponent({
         }) as Exclude<ScaffoldQueryForm, ScaffoldQueryAddExtraParamsForm>[]
     })
 
-    const filterForms  = computed(() => {
+    const finallyForms  = computed(() => {
       const forms = visibleForms.value
       if (isShowAll.value) {
         return forms
@@ -39,12 +40,14 @@ export default defineComponent({
       isShowAll.value = !isShowAll.value
     }
 
-    const renderCols = () => filterForms.value.map(form => {
+    const { renderFormItem, renderQuery, renderReset, renderMore } = createFormRender(uiRender, { asyncData, formData })
+
+    const renderCols = () => finallyForms.value.map(form => {
       const { label, span } = form
       return <div class='col' style={getColStyle(span!)}>
         <div class='label'>{label}</div>
         <div class='form-item'>
-          {renderFormItem(form, { asyncData, formData })}
+          {renderFormItem(form)}
         </div>
       </div>
     })

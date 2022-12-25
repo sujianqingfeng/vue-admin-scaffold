@@ -1,8 +1,7 @@
 import { ref, provide, inject } from 'vue'
 import type { Ref, InjectionKey } from 'vue'
-
 import type { DataSource, FormDataRef, ScaffoldRequest } from 'types'
-import { config } from '@config'
+import { getConfig } from '@config'
 import type { InjectPagination } from './pagination'
 import { merge } from 'lodash-es'
 
@@ -23,8 +22,8 @@ export const useProvideScaffoldRequest  = (_request: ScaffoldRequest, formData: 
   })
 
   const resolveRequestConfig = (request: ScaffoldRequest) => {
-    const { request: defaultRequest } = config
-    return merge(defaultRequest, request)
+    const { request: defaultRequest } = getConfig() 
+    return merge(defaultRequest, request) as Required<ScaffoldRequest>
   }
   const request = ref(resolveRequestConfig(_request))
 

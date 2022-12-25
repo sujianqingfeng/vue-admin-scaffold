@@ -1,7 +1,7 @@
 import { inject, provide, ref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
 import type { ScaffoldTable } from 'types'
-import { config } from '../config'
+import { getConfig } from '@config'
 import { merge } from 'lodash-es'
 
 export type InjectTable = {
@@ -10,7 +10,7 @@ export type InjectTable = {
 } 
 
 const resolveTableConfig = (table: ScaffoldTable) => {
-  const { table: defaultTable } = config
+  const { table: defaultTable } = getConfig()
   return merge(defaultTable, table)
 }
 

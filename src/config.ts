@@ -1,5 +1,5 @@
 import { merge } from 'lodash-es'
-import type { DeepPartial, DeepRequired, ScaffoldSchema } from 'types'
+import type { DeepPartial, ScaffoldSchema } from 'types'
 import { createElementUiRender } from './renders'
 
 export const defineScaffoldSchema = <T extends ScaffoldSchema>(config: T): T => {
@@ -71,7 +71,7 @@ export const defineScaffoldConfig = (_config: DeepPartial<ScaffoldSchema>) => {
 }
 
 // export let config: DeepRequired<ScaffoldSchema> = defaultConfig
-export let config: ScaffoldSchema = defaultConfig
+let config: ScaffoldSchema = defaultConfig
 
 export const getConfig = () => config
 
