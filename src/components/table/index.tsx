@@ -1,6 +1,6 @@
 import { defineComponent, ref, VNode, watchEffect } from 'vue'
 import { useScaffoldQuery, useScaffoldTable, useScaffoldRequest, useScaffoldUIRender  } from '@composables'
-import { crateTableActionRender, renderTable, renderTableColumn  } from './render'
+import { createTableRender  } from './render'
 import type { ScaffoldTableActionItem, ScaffoldTableCol } from 'types'
 import { isFunction } from 'lodash-es'
 
@@ -11,6 +11,8 @@ export default defineComponent({
     const { loading, dataSource } = useScaffoldRequest()
     const { formData } = useScaffoldQuery()
     const uiRender = useScaffoldUIRender()
+
+    const { createTableActionRender, renderTableColumn, renderTable } = createTableRender(uiRender)
 
     const columnVNodes = ref<VNode[]>([])
 
@@ -41,7 +43,7 @@ export default defineComponent({
     const renderActions = (actions: ScaffoldTableActionItem[], param: any) => {
       return actions
         .filter(createFilterAction(param))
-        .map(crateTableActionRender(uiRender, param))
+        .map(createTableActionRender(param))
     }
 
     watchEffect(() => {

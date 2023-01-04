@@ -1,8 +1,8 @@
 import { getConfig } from '@config'
 import { merge } from 'lodash-es'
 import type { ScaffoldPagination } from 'types'
-import type {  InjectionKey, Ref } from 'vue'
-import { ref, provide, inject  } from 'vue'
+import type { InjectionKey, Ref } from 'vue'
+import { ref, provide, inject } from 'vue'
 
 export type InjectPagination = {
   pagination: Ref<Required<ScaffoldPagination>>
