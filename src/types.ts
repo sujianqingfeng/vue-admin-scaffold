@@ -241,6 +241,8 @@ export interface ScaffoldSchema {
   operate?: ScaffoldOperate
 }
 
+export type ScaffoldSchemaKeys =  keyof ScaffoldSchema
+
 export type ScaffoldInstance = {
   fetchAsyncData: (keys: string[]) => void
 }

@@ -6,7 +6,6 @@ export const defineScaffoldSchema = <T extends ScaffoldSchema>(config: T): T => 
   return config
 }
 
-// export const defaultConfig: DeepRequired<ScaffoldSchema>  = {
 export const defaultConfig: ScaffoldSchema  = {
   uiRender: createElementUiRender(),
   query: {

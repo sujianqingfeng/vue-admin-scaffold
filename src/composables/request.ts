@@ -4,6 +4,7 @@ import type { DataSource, FormDataRef, ScaffoldRequest } from 'types'
 import { getConfig } from '@config'
 import type { InjectPagination } from './pagination'
 import { merge } from 'lodash-es'
+import { resolveConfig } from 'utils'
 
 export type InjectRequest = {
   fetchList: () => void,
@@ -20,12 +21,8 @@ export const useProvideScaffoldRequest  = (_request: ScaffoldRequest, formData: 
     list: [],
     total: 0
   })
-
-  const resolveRequestConfig = (request: ScaffoldRequest) => {
-    const { request: defaultRequest } = getConfig() 
-    return merge(defaultRequest, request) as Required<ScaffoldRequest>
-  }
-  const request = ref(resolveRequestConfig(_request))
+  
+  const request = ref(resolveConfig('request', _request) as Required<ScaffoldRequest>)
 
   const fetchList = () => {
     const { apiFn, adapter, transform, onSuccess, onError } = request.value
