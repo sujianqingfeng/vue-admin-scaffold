@@ -1,5 +1,5 @@
 import type { ScaffoldPagination } from 'types'
-import { resolveConfig } from 'utils'
+import { resolveScaffoldConfig } from 'utils'
 import type { InjectionKey, Ref } from 'vue'
 import { ref, provide, inject } from 'vue'
 
@@ -9,7 +9,7 @@ export type InjectPagination = {
 } 
 
 const resolvePaginationConfig = (pagination: ScaffoldPagination) => {
-  return resolveConfig('pagination', pagination) as ScaffoldPagination
+  return resolveScaffoldConfig('pagination', pagination) 
 }
 
 const PAGINATION_KEY: InjectionKey<InjectPagination> = Symbol('pagination-key') 

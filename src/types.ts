@@ -7,6 +7,8 @@ export type DeepRequired<T> = {
   [K in keyof T]: Required<DeepRequired<T[K]>>
 }
 
+export type ValueOf<T> = T[keyof T]
+
 type Value =  string | number | boolean | null
 
 export interface Option {

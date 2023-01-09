@@ -1,7 +1,7 @@
 import { inject, provide, ref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
 import type { ScaffoldTable } from 'types'
-import { resolveConfig } from 'utils'
+import { resolveScaffoldConfig } from 'utils'
 
 export type InjectTable = {
   table: Ref<ScaffoldTable>,
@@ -12,7 +12,7 @@ const TABLE_KEY: InjectionKey<InjectTable> = Symbol('table-key')
 export const useProvideScaffoldTable = (_table: ScaffoldTable) => {
 
   const tableInject: InjectTable = {
-    table: ref(resolveConfig('table', _table) as ScaffoldTable),
+    table: ref(resolveScaffoldConfig('table', _table)),
     tableRef: ref(null)
   } 
 
