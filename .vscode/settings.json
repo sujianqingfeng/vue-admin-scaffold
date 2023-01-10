@@ -19,6 +19,7 @@
     "composables",
     "Popconfirm",
     "stylelint",
-    "sujian"
+    "sujian",
+    "vitepress"
   ]
 }

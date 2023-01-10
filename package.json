@@ -12,7 +12,8 @@
     "lint:fix": "eslint . --fix",
     "lint:style": "stylelint .",
     "lint:style-fix": "stylelint  . --fix",
-    "play": "vite playground --open --host"
+    "play": "vite playground --open --host",
+    "docs": "pnpm -C docs run dev"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",

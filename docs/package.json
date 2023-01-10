@@ -1,0 +1,16 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "",
+  "author": "hens",
+  "license": "MIT",
+  "keywords": [],
+  "main": "index.js",
+  "scripts": {
+    "dev": "vitepress --port 3333 --open"
+  },
+  "devDependencies": {
+    "vitepress": "1.0.0-alpha.35",
+    "vue": "^3.2.37"
+  }
+}
