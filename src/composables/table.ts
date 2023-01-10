@@ -1,7 +1,7 @@
 import { inject, provide, ref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
 import type { ScaffoldTable } from 'types'
-import { resolveScaffoldConfig } from 'utils'
+import { resolveScaffoldConfig } from '../utils'
 
 export type InjectTable = {
   table: Ref<ScaffoldTable>,

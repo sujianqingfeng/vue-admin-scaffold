@@ -1,10 +1,8 @@
 import { ref, provide, inject } from 'vue'
 import type { Ref, InjectionKey } from 'vue'
 import type { DataSource, FormDataRef, ScaffoldRequest } from 'types'
-import { getConfig } from '@config'
 import type { InjectPagination } from './pagination'
-import { merge } from 'lodash-es'
-import { resolveScaffoldConfig } from 'utils'
+import { resolveScaffoldConfig } from '../utils'
 
 export type InjectRequest = {
   fetchList: () => void,

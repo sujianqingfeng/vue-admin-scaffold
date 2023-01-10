@@ -77,7 +77,7 @@ export type ScaffoldQueryForm = ScaffoldQuerySelectForm | ScaffoldQueryInputForm
 export type ScaffoldQueryFormTypes  = ScaffoldQueryForm['__type__'] 
 export type AsyncQueryFormTypes = Exclude<ScaffoldQueryFormTypes, 'input' | 'custom' | 'add-extra-params'>
 
-export type ScaffoldQueryActon = {
+export type ScaffoldQueryAction = {
   hasReset?: boolean
   hasQuery?: boolean
   resetText?: string
@@ -87,12 +87,12 @@ export type ScaffoldQueryActon = {
   onReset?: () => void
   onQuery?: () => void
 } 
-export type RequiredScaffoldQueryAction = Required<ScaffoldQueryActon>
+export type RequiredScaffoldQueryAction = Required<ScaffoldQueryAction>
 
 export interface ScaffoldQuery {
-  layout?: ScaffoldQueryLayout
-  forms?: ScaffoldQueryForm[]
-  action?: ScaffoldQueryActon
+  layout: ScaffoldQueryLayout
+  forms: ScaffoldQueryForm[]
+  action: ScaffoldQueryAction
 }
 
 // --- request ---
@@ -205,8 +205,8 @@ export type ScaffoldOperateItem = ScaffoldOperateBtItem | ScaffoldOperateCustomI
 export type ScaffoldOperateTypes = ScaffoldOperateItem['__type__']
 
 export type ScaffoldOperate = {
-  left?: ScaffoldOperateItem[]
-  right?: ScaffoldOperateItem[]
+  left: ScaffoldOperateItem[]
+  right: ScaffoldOperateItem[]
 }
 
 // ui render
@@ -242,8 +242,6 @@ export interface ScaffoldSchema {
   table: ScaffoldTable
   operate?: ScaffoldOperate
 }
-
-export type ScaffoldSchemaKeys =  keyof ScaffoldSchema
 
 export type ScaffoldInstance = {
   fetchAsyncData: (keys: string[]) => void
