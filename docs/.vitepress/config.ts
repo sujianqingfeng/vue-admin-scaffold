@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+// import { markdownConfig } from 'vitepress-doc-plugin'
 
 import { 
   scaffoldName,
@@ -20,6 +21,10 @@ export default defineConfig({
           text: 'Guide',
           items: [
             {
+              text: 'basic',
+              link: '/guide/basic'
+            },
+            {
               text: 'why',
               link: '/guide/why'
             }
@@ -27,5 +32,8 @@ export default defineConfig({
         }
       ]
     }
+  },
+  markdown: {
+    // config: markdownConfig
   }
 })

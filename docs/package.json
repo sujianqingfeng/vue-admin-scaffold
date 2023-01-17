@@ -9,7 +9,13 @@
   "scripts": {
     "dev": "vitepress --port 3333 --open"
   },
+  "dependencies": {
+    "vitepress-doc-plugin": "^1.2.4"
+  },
   "devDependencies": {
+    "arcon": "^0.1.1",
+    "turndown": "^7.1.1",
+    "turndown-plugin-gfm": "^1.0.2",
     "vitepress": "1.0.0-alpha.35",
     "vue": "^3.2.37"
   }
