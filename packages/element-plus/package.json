@@ -1,0 +1,13 @@
+{
+  "name": "scaffold-element-plus",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "MIT",
+  "keywords": [],
+  "module": "index.ts",
+  "dependencies": {
+    "core": "workspace: *",
+    "shared": "workspace: *"
+  }
+}

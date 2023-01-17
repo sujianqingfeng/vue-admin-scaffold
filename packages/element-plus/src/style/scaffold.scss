@@ -1,0 +1,95 @@
+$distance: 16px;
+$bg: white;
+$more-color: #3a74f2;
+$operate-bg: rgb(245 245 245 / 70%);
+
+%line {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  width: 45%;
+  top: 50%;
+  border-top: 1px solid #eee;
+}
+
+.scaffold-container {
+  .scaffold-query-container {
+    padding: $distance;
+    background-color: $bg;
+
+    .main-container {
+      display: flex;
+
+      .forms {
+        flex: 1;
+
+        .row {
+          .col {
+            display: inline-flex;
+            align-items: center;
+            box-sizing: border-box;
+            margin-bottom: $distance;
+
+            .label {
+              width: 84px;
+              display: inline-block;
+              flex-shrink: 0;
+              font-size: 14px;
+            }
+
+            .form-item {
+              flex: 1;
+              padding-right: 20px;
+            }
+          }
+        }
+      }
+    }
+
+    .more-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      &::before {
+        left: 0;
+
+        @extend %line;
+      }
+
+      &::after {
+        left: 55%;
+
+        @extend %line;
+      }
+
+      .more {
+        cursor: pointer;
+        color: $more-color;
+      }
+    }
+  }
+
+  .operate-container {
+    padding: $distance;
+    background-color: $operate-bg;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .table-container {
+    padding: $distance;
+    background-color: $bg;
+  }
+
+  .pagination-container {
+    padding: $distance;
+    padding-top: 0;
+    background-color: $bg;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}

@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { onMounted, ref, h } from 'vue'
-import { Scaffold, defineScaffoldSchema, defineScaffoldConfig } from '@sujian/vue-admin-scaffold'
-import type { ScaffoldInstance } from '@sujian/vue-admin-scaffold'
+import { Scaffold, defineScaffoldSchema, defineScaffoldConfig } from 'scaffold-element-plus'
+// import type { ScaffoldInstance } from '@sujian/vue-admin-scaffold'
 
 import { fetchTestTableListApi } from './api'
 
-import '@sujian/vue-admin-scaffold/style.scss'
-const scaffoldRef = ref<ScaffoldInstance>()
+import 'scaffold-element-plus/src/style/scaffold.scss'
+
+// const scaffoldRef = ref<ScaffoldInstance>()
+const scaffoldRef = ref<any>()
 defineScaffoldConfig({
   request: {
     transform: (data: any) => {
