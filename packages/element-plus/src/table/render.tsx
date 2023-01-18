@@ -1,41 +1,73 @@
-import type { Custom,  RenderTableOption,  ScaffoldTableActionItem,  ScaffoldTableCol, ScaffoldUiRender } from 'types'
+import { ElButton, ElLoadingDirective, ElPopconfirm, ElTable, ElTableColumn } from 'element-plus'
+import { isFunction } from 'lodash-es'
+import type { Custom,  RenderTableOption,  ScaffoldTableActionConfirmTextBt,  ScaffoldTableActionItem,  ScaffoldTableActionText,  ScaffoldTableActionTextBt,  ScaffoldTableCol, ScaffoldTableColWithoutCustom, ScaffoldUiRender } from 'shared/types'
+import { withDirectives } from 'vue'
 import RenderOrSlot from '../render-or-slot'
 
-export const createTableRender = (uiRender: ScaffoldUiRender) => {
-  const createTableActionRender = (param: any) => {
-    return  (item: ScaffoldTableActionItem) => {
-      switch (item.__type__) {
-        case 'text_bt':
-          return uiRender.renderTableTextBtAction(item, param)
-        case 'confirm_text_bt':
-          return uiRender.renderTableConfirmTextBtAction(item, param)
-        case 'custom':
-          return <RenderOrSlot name='operate-custom-item' option={item} param={param}></RenderOrSlot>
-      }
-    }
-  } 
-
-  const renderTable = (option: RenderTableOption, children: JSX.Element[]) => {
-    return uiRender.renderTable(option, children)
+const getTableActionText = (text: ScaffoldTableActionText, param: any): string => {
+  if (isFunction(text)) {
+    return text(param)
   }
-
-  const renderTableColumn = (col: ScaffoldTableCol) => {
-    const { render, slot, ...rest } = col
-    let paramRender = null
-
-    if (render || slot) {
-      const option: Custom = {
-        render,
-        slot
-      }
-      paramRender = (param: any) => <RenderOrSlot name='column-custom' param={param} option={option}></RenderOrSlot> 
-    }
-    return uiRender.renderTableColumn(rest, paramRender)
-  }
-
-  return {
-    createTableActionRender,
-    renderTable,
-    renderTableColumn
-  }
+  return text
 }
+
+const renderTableConfirmTextBtAction = (item: ScaffoldTableActionConfirmTextBt, param: any) => {
+  const { text, confirmText, onConfirm } = item
+
+  return <ElPopconfirm title={confirmText} onConfirm={() => onConfirm(param)}>
+    {{
+      reference: () => <ElButton link>{getTableActionText(text, param)}</ElButton>,
+    }}
+  </ElPopconfirm>
+}
+
+const renderTableTextBtAction = (item: ScaffoldTableActionTextBt, param: any) => {
+  const { text, onClick } = item
+  return <ElButton link onClick={() => onClick(param)}>{getTableActionText(text, param)}</ElButton>
+}
+export const createTableActionRender = (param: any) => {
+  return  (item: ScaffoldTableActionItem) => {
+    switch (item.__type__) {
+      case 'text_bt':
+        return renderTableTextBtAction(item, param)
+      case 'confirm_text_bt':
+        return renderTableConfirmTextBtAction(item, param)
+      case 'custom':
+        return <RenderOrSlot name='operate-custom-item' option={item} param={param}></RenderOrSlot>
+    }
+  }
+} 
+
+export const renderTable = (option: RenderTableOption, children: JSX.Element[]) => {
+  const { tableRef, dataSource, loading } = option
+
+  const vNode = <ElTable ref={tableRef} data={dataSource.value.list}>
+    {children}
+  </ElTable>
+  return withDirectives(vNode, [[ElLoadingDirective, loading.value]])
+}
+
+export const renderTableColumn = (col: ScaffoldTableCol) => {
+  const { render, slot,  ...rest } = col
+  let paramRender: ((params: any) => JSX.Element) | null = null
+
+  if (render || slot) {
+    const option: Custom = {
+      render,
+      slot
+    }
+    paramRender = (param: any) => <RenderOrSlot name='column-custom' param={param} option={option}></RenderOrSlot> 
+  }
+
+  return <ElTableColumn {...rest as any}>
+    {{
+      default: (param: any) => {
+        if (!paramRender) {
+          return null
+        } 
+        return paramRender(param)
+      } 
+    }}
+  </ElTableColumn>
+}
+

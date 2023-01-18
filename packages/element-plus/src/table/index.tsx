@@ -1,8 +1,8 @@
 import { defineComponent, ref, VNode, watchEffect } from 'vue'
-import { useScaffoldQuery, useScaffoldTable, useScaffoldRequest, useScaffoldUIRender  } from '@composables'
-import { createTableRender  } from './render'
-import type { ScaffoldTableActionItem, ScaffoldTableCol } from 'types'
+import type { ScaffoldTableActionItem, ScaffoldTableCol } from 'shared/types'
 import { isFunction } from 'lodash-es'
+import { useScaffoldQuery, useScaffoldRequest, useScaffoldTable } from 'core'
+import { createTableActionRender, renderTable, renderTableColumn } from './render'
 
 export default defineComponent({
   
@@ -10,9 +10,6 @@ export default defineComponent({
     const { table, tableRef } = useScaffoldTable()
     const { loading, dataSource } = useScaffoldRequest()
     const { formData } = useScaffoldQuery()
-    const uiRender = useScaffoldUIRender()
-
-    const { createTableActionRender, renderTableColumn, renderTable } = createTableRender(uiRender)
 
     const columnVNodes = ref<VNode[]>([])
 

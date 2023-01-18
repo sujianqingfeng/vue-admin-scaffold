@@ -1,9 +1,12 @@
 import Scaffold from './src/scaffold'
 
-export { ScaffoldProvider } from 'core'
+import { ScaffoldProvider } from 'core'
 
 export {
-  Scaffold
+  Scaffold,
+  ScaffoldProvider
 }
+
+export type ScaffoldInstance = InstanceType<typeof ScaffoldProvider>
 
 export { defineScaffoldSchema, defineScaffoldConfig } from 'shared/config'

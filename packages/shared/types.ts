@@ -5,13 +5,6 @@ export type WithRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K
 // export type DeepPartial<T> = Partial<{ [P in keyof T]: DeepPartial<T[P]> }>;
 export type DeepPartial<T> = { [P in keyof T]?: DeepPartial<T[P]> }
 
-// type AA = {b: number}
-// type A = {a?: number, b: AA }
-// type B = DeepPartial<A>
-// type C = Partial<A>
-
-// type D = B extends C ? '1':'2'
-
 export type DeepRequired<T> = {
   [K in keyof T]: Required<DeepRequired<T[K]>>
 }
@@ -52,6 +45,7 @@ export interface ScaffoldQueryLayout {
 export type RequiredScaffoldQueryLayout = Required<ScaffoldQueryLayout>
 
 type ScaffoldQueryCommonForm = {
+  key: string
   label: string
   value?: any
   span?: number
@@ -61,24 +55,20 @@ type ScaffoldQueryCommonForm = {
 
 export type ScaffoldQuerySelectForm = ScaffoldQueryCommonForm & {
   __type__: 'select'
-  key: string
   autoFetch?: boolean
   options?: Option[] | ((formData: FormData) => Promise<Option[]>)
 }  
 
 export type ScaffoldQueryInputForm = ScaffoldQueryCommonForm  & {
   __type__: 'input'
-  key: string
 }
 
 export type ScaffoldQueryCustomForm = Custom<QueryContext> & ScaffoldQueryCommonForm  & {
   __type__: 'custom'
-  key: string
 }
 
 export type ScaffoldQueryAddExtraParamsForm = ScaffoldQueryCommonForm  & {
   __type__: 'add-extra-params'
-  key: string
 }
 
 export type ScaffoldQueryForm = ScaffoldQuerySelectForm | ScaffoldQueryInputForm | ScaffoldQueryAddExtraParamsForm | ScaffoldQueryCustomForm 
@@ -227,21 +217,6 @@ export type ActionProps = {
 
 export type RenderTableOption =Pick<InjectTable, 'tableRef'> &  Pick<InjectRequest, 'loading' | 'dataSource'>
 
-export type ScaffoldUiRender = {
-  renderQueryInput: (form: ScaffoldQueryInputForm, context: QueryContext) => JSX.Element
-  renderQuerySelect: (form: ScaffoldQuerySelectForm, context: QueryContext) => JSX.Element
-  renderQueryResetAction: (props: ActionProps, text: string) => JSX.Element
-  renderQueryQueryAction: (props: ActionProps, text: string) => JSX.Element
-  renderQueryMore: (isShowAll: boolean) => JSX.Element
-  renderTable: (option: RenderTableOption, children: JSX.Element[]) => JSX.Element
-  renderTableColumn: (col: ScaffoldTableCol, render: ((param: any) => JSX.Element )| null) => JSX.Element
-  renderOperateBt: (operate: ScaffoldOperateBtItem, contentFn: GetContentFn) => JSX.Element
-  renderOperateConfirmBt: (operate: ScaffoldOperateConfirmBtItem, contentFn: GetContentFn) => JSX.Element
-  renderPagination: (pagination: ScaffoldPagination) => JSX.Element
-  renderTableTextBtAction: (operate: ScaffoldTableActionTextBt, param: any) => JSX.Element
-  renderTableConfirmTextBtAction: (operate: ScaffoldTableActionConfirmTextBt, param: any) => JSX.Element
-}
-
 // --- main ---
 export interface ScaffoldSchema {
   query: ScaffoldQuery
@@ -255,6 +230,6 @@ export type PartialNoDeep<T> = { [P in keyof T]?: Partial<T[P]> }
 
 export type PartialScaffoldSchema = PartialNoDeep<ScaffoldSchema> 
 
-export type ScaffoldInstance = {
-  fetchAsyncData: (keys: string[]) => void
-}
+// export type ScaffoldInstance = {
+//   fetchAsyncData: (keys: string[]) => void
+// }

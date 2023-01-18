@@ -1,14 +1,14 @@
-import { useScaffoldPagination, useScaffoldUIRender } from '@composables'
+import { useScaffoldPagination } from 'core'
+import { ElPagination } from 'element-plus'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'Pagination',
   setup() {
     const { pagination } = useScaffoldPagination()
-    const uiRender = useScaffoldUIRender()
 
     return () => <div class='pagination-container'>
-      { uiRender.renderPagination(pagination.value)}
+      <ElPagination {...pagination.value}></ElPagination>
     </div>
   },
 })

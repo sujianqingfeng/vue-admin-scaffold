@@ -8,6 +8,7 @@ import './style'
 export default defineComponent({
   props,
   setup(props) {
+
     return () => <ScaffoldProvider {...props}>
       <Main></Main>
     </ScaffoldProvider>

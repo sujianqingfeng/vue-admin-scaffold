@@ -20,7 +20,7 @@ export const useProvideScaffoldRequest  = (_request: Partial<ScaffoldRequest> = 
     total: 0
   })
   
-  const request = ref(resolveScaffoldConfig('request', _request) as Required<ScaffoldRequest>)
+  const request = ref(resolveScaffoldConfig('request', _request))
 
   const fetchList = () => {
     const { apiFn, adapter, transform, onSuccess, onError } = request.value

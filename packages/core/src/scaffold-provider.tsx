@@ -9,7 +9,7 @@ import { useProvideScaffoldTable } from './table'
 
 export default defineComponent({
   props,
-  setup(props, ctx) {
+  setup(props, { expose, slots }) {
     const { formData, fetchAsyncData } = useProvideScaffoldQuery(props.schema.query)
     const pagination = useProvideScaffoldPagination(props.schema.pagination)
     useProvideScaffoldOperate(props.schema.operate)
@@ -17,6 +17,11 @@ export default defineComponent({
     useProvideScaffoldTable(props.schema.table)
     useProvideScaffoldSlots()
 
-    return ctx.slots?.default
+    expose({
+      formData,
+      fetchAsyncData 
+    })
+
+    return slots?.default
   },
 })

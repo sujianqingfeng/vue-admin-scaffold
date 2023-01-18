@@ -1,7 +1,9 @@
 import { merge } from 'lodash-es'
-import type { DeepPartial, ScaffoldSchema } from './types'
+import type { DeepPartial, ScaffoldSchema, PartialScaffoldSchema  } from './types'
 
-export const defineScaffoldSchema = <T = DeepPartial<ScaffoldSchema>>(config: T): T => {
+// export type DeepPartial<T> = Partial<{ [P in keyof T]: DeepPartial<T[P]> }>;
+
+export const defineScaffoldSchema = (config: PartialScaffoldSchema) => {
   return config
 }
 

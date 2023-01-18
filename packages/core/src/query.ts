@@ -1,8 +1,8 @@
 import { inject, provide, ref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
 import type { AsyncDataRef, AsyncQueryFormTypes, DeepPartial, FormData, FormDataRef, RequiredScaffoldQueryAction, RequiredScaffoldQueryLayout, ScaffoldQuery, ScaffoldQueryForm,  ScaffoldQuerySelectForm } from 'shared/types'
-import { isArray, isFunction, isString } from '@sujian/utils'
 import { generateKey, resolveScaffoldQueryConfig } from 'shared'
+import { isArray, isString } from 'lodash-es'
 
 type InjectQuery = {
   layout: Ref<RequiredScaffoldQueryLayout>

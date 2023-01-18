@@ -5,6 +5,7 @@ export { useScaffoldSlots } from './src/slots'
 export { useScaffoldOperate } from './src/operate'
 export { useScaffoldRequest } from './src/request'
 export { useScaffoldTable } from './src/table'
+export { useScaffoldPagination } from './src/pagination'
 
 export {
   ScaffoldProvider
