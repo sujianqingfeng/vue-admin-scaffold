@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-// import { markdownConfig } from 'vitepress-doc-plugin'
+import { applyPlugins } from '../demo/plugins'
 
 import { 
   scaffoldName,
@@ -34,6 +34,8 @@ export default defineConfig({
     }
   },
   markdown: {
-    // config: markdownConfig
+    config(md) {
+      applyPlugins(md)
+    },
   }
 })

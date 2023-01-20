@@ -13,7 +13,6 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "paths": {
-      "@sujian/vue-admin-scaffold": ["../src/index.ts"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "../shims.ts", "../shims.ts"],

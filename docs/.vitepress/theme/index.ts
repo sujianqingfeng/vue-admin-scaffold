@@ -1,10 +1,9 @@
 import DefaultTheme from 'vitepress/theme'
-// import 'vitepress-doc-plugin/style.css'
-// import { Demo } from 'vitepress-doc-plugin'
+import { Demo } from '../../demo'
 
 export default {
   ...DefaultTheme,
-  enhanceApp: ({ app }) => {
-    // app.component('Demo', Demo)
+  enhanceApp: ({ app }: any) => {
+    app.component('Demo', Demo)
   },
 }

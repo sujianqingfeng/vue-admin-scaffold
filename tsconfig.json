@@ -13,15 +13,13 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "rootDir": ".",
-    "baseUrl": "src",
     "composite": true,
+    "rootDir": ".",
     "paths": {
-      "@components/*": ["components/*"],
-      "@composables": ["composables/index.ts"],
-      "@config": ["config.ts"]
     }
   },
+  "include": [
+  ],
   "exclude": [
     "dist",
     "playground"
