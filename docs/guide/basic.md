@@ -6,4 +6,4 @@ title: Basic | Guide
 </script>
 
 
-<demo src='../components/basic.vue' title='xxx'> ffff </demo>
+<demo src='../components/basic.vue' title='basic' desc='desc'></demo>

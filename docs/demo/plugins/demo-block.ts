@@ -1,6 +1,7 @@
+import { readFileSync } from 'fs'
 import { dirname, resolve } from 'path'
 import { MarkdownRenderer } from 'vitepress'
-import { parseProps } from './utils'
+import { getDemoComponent, parseProps } from './utils'
 
 function pluginDemoBlock(md: MarkdownRenderer) {
 
@@ -28,11 +29,16 @@ function pluginDemoBlock(md: MarkdownRenderer) {
 
       const mdDir = dirname(frontmatter.realPath ?? path)
       const srcPath = resolve(mdDir, props.src)
+      const code = readFileSync(srcPath, 'utf-8')
 
-      console.log('----src path', srcPath)
-      console.log('----', env)
+      const demoScripts = getDemoComponent(md, env, {
+        title: props.title,
+        desc: props.desc,
+        path: srcPath,
+        code,
+      })
 
-      return ''
+      return demoScripts
     }
 
   }
