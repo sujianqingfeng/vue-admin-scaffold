@@ -1,9 +1,11 @@
 import { ElButton, ElIcon, ElInput, ElOption, ElSelect } from 'element-plus'
-import type { ActionProps, QueryContext, RequiredScaffoldQueryAction, ScaffoldQueryAddExtraParamsForm, ScaffoldQueryForm, ScaffoldQueryInputForm, ScaffoldQuerySelectForm } from 'shared/types'
+import type { ActionProps, FetchList, QueryContext, RequiredScaffoldQueryAction, ScaffoldQueryAddExtraParamsForm, ScaffoldQueryForm, ScaffoldQueryInputForm, ScaffoldQuerySelectForm } from 'shared/types'
 import { createDefaultEvent, createWrapperEvent } from '../utils'
 import RenderOrSlot from '../render-or-slot'
 import { ArrowUp } from '@element-plus/icons-vue'
 import { CSSProperties } from 'vue'
+import { useScaffoldQuery, useScaffoldRequest } from 'core'
+import { useReset } from '../composiables'
 
 const renderQueryInput = (form: ScaffoldQueryInputForm, { formData }: QueryContext) => {
   const { key, label } = form 
@@ -44,16 +46,19 @@ export const createFormItemRender = (context: QueryContext) => {
 
 export const renderReset = (action: RequiredScaffoldQueryAction) => {
   const { hasReset, onReset, resetText, preventReset, resetAutoFetch } = action
+  const { fetchList } = useScaffoldRequest()
+  const { reest } = useReset()
+
   if (hasReset) {
     const props: ActionProps = {
       class: 'reset-bt',
       onClick: () => {
         if (!preventReset) {
-          // this.reset()
+          reest()
         }
         // 重置后是否自动查询
         if (resetAutoFetch) {
-          // this._fetchList()
+          fetchList()
         }
         onReset()
       } 
@@ -62,12 +67,14 @@ export const renderReset = (action: RequiredScaffoldQueryAction) => {
   }
 }
 
-export const renderQuery = (action: RequiredScaffoldQueryAction) => {
+export const renderQuery = (action: RequiredScaffoldQueryAction, ) => {
   const { hasQuery, queryText, onQuery  } = action
+  const { fetchList } = useScaffoldRequest()
   if (hasQuery) {
     const props: ActionProps = {
       class: 'query-bt',
       onClick: () => {
+        fetchList()
         onQuery()
       } 
     }

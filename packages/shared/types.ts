@@ -215,7 +215,30 @@ export type ActionProps = {
   class: string
 }
 
-export type RenderTableOption =Pick<InjectTable, 'tableRef'> &  Pick<InjectRequest, 'loading' | 'dataSource'>
+// export type RenderTableOption =Pick<InjectTable, 'tableRef'> &  Pick<InjectRequest, 'loading' | 'dataSource'>
+
+// --- inject --- 
+export type FetchList = () => void 
+
+export type InjectRequest = {
+  fetchList: FetchList
+  loading: Ref<boolean>,
+  dataSource: Ref<DataSource>
+}
+
+export type InjectQuery = {
+  layout: Ref<RequiredScaffoldQueryLayout>
+  formData: FormDataRef 
+  asyncData: AsyncDataRef  
+  forms: ScaffoldQueryForm[]
+  action: Ref<RequiredScaffoldQueryAction>
+  resetFormData: () => void
+}
+
+export type InjectTable<T=any> = {
+  table: Ref<ScaffoldTable>,
+  tableRef: Ref<T>
+}
 
 // --- main ---
 export interface ScaffoldSchema {

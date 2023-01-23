@@ -1,16 +1,8 @@
 import { inject, provide, ref } from 'vue'
 import type { InjectionKey, Ref } from 'vue'
-import type { AsyncDataRef, AsyncQueryFormTypes, DeepPartial, FormData, FormDataRef, RequiredScaffoldQueryAction, RequiredScaffoldQueryLayout, ScaffoldQuery, ScaffoldQueryForm,  ScaffoldQuerySelectForm } from 'shared/types'
+import type { AsyncDataRef, AsyncQueryFormTypes, DeepPartial, FormData, FormDataRef, InjectQuery, RequiredScaffoldQueryAction, RequiredScaffoldQueryLayout, ScaffoldQuery, ScaffoldQueryForm,  ScaffoldQuerySelectForm } from 'shared/types'
 import { generateKey, resolveScaffoldQueryConfig } from 'shared'
 import { isArray, isString } from 'lodash-es'
-
-type InjectQuery = {
-  layout: Ref<RequiredScaffoldQueryLayout>
-  formData: FormDataRef 
-  asyncData: AsyncDataRef  
-  forms: ScaffoldQueryForm[],
-  action: Ref<RequiredScaffoldQueryAction>
-} 
 
 const resolveFormsConfig = (forms: ScaffoldQueryForm[], layout: RequiredScaffoldQueryLayout) => {
   const data: ScaffoldQueryForm[] = []
@@ -103,13 +95,18 @@ export const useProvideScaffoldQuery = (query: Partial<ScaffoldQuery> = {}) => {
   const layoutRaw = resolveScaffoldQueryConfig('layout', query.layout || {}) 
   const layout = ref(layoutRaw) 
 
-  const formData = ref(generateFormData(forms))
+  const formDataRaw = generateFormData(forms)
+  const formData = ref({ ...formDataRaw })
   const { asyncData, fetchAsyncData } = useFetchAsyncData(forms, formData)
   const finalForms = resolveFormsConfig(forms, layoutRaw)
   const actionRaw = resolveScaffoldQueryConfig('action', query.action || {})
   const action = ref(actionRaw)
 
-  const injectData: InjectQuery = { layout, formData, asyncData, forms: finalForms, action }
+  const resetFormData = () => {
+    formData.value = { ...formDataRaw }
+  }
+
+  const injectData: InjectQuery = { layout, formData, asyncData, forms: finalForms, action, resetFormData }
 
   provide(QUERY_KEY, injectData)
   return { ...injectData, fetchAsyncData }

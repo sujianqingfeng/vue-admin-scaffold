@@ -61,8 +61,8 @@ export default defineComponent({
           </div>
         </div>
         <div class="actions">
-          {renderReset(action.value)}
-          {renderQuery(action.value)}
+          {renderReset(action.value,)}
+          {renderQuery(action.value,)}
         </div>
       </div>
       <div class="more-container">

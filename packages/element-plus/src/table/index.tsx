@@ -11,7 +11,7 @@ export default defineComponent({
     const { loading, dataSource } = useScaffoldRequest()
     const { formData } = useScaffoldQuery()
 
-    const columnVNodes = ref<VNode[]>([])
+    const columnVNodes = ref<JSX.Element[]>([])
 
     const filterCol = (col: ScaffoldTableCol) => {
       const { show } = col
@@ -53,11 +53,9 @@ export default defineComponent({
         columnVNodes.value.push(col)
       }
     })
-    
-    const option = { tableRef, loading, dataSource }
 
     return () => <div class='table-container'>
-      {renderTable(option, columnVNodes.value)}
+      {renderTable(columnVNodes.value, loading.value)}
     </div>
   }
 })

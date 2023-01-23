@@ -1,10 +1,14 @@
+import { resolve } from 'path'
 import { defineConfig } from 'vitepress'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import { applyPlugins } from '../demo/plugins'
 
 import { 
   scaffoldName,
   scaffoldDescription 
 } from './meta'
+
+const pkgResolve = (...paths) => resolve(__dirname, '../../packages', ...paths)
 
 export default defineConfig({
   title: scaffoldName,
@@ -37,5 +41,13 @@ export default defineConfig({
     config(md) {
       applyPlugins(md)
     },
+  },
+  vite: {
+    resolve: {
+      alias: {
+        'vue-admin-scaffold/element-plus': pkgResolve('element-plus/index.ts')
+      }
+    },
+    plugins: [vueJsx()]
   }
 })

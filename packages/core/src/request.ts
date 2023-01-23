@@ -1,14 +1,8 @@
 import { ref, provide, inject } from 'vue'
-import type { Ref, InjectionKey } from 'vue'
-import type { DataSource, FormDataRef, ScaffoldRequest } from 'shared/types'
+import type { InjectionKey } from 'vue'
+import type { DataSource, FormDataRef, InjectRequest, ScaffoldRequest } from 'shared/types'
 import type { InjectPagination } from './pagination'
 import { resolveScaffoldConfig } from 'shared'
-
-export type InjectRequest = {
-  fetchList: () => void,
-  loading: Ref<boolean>,
-  dataSource: Ref<DataSource>
-}
 
 const REQUEST_KEY = Symbol('request-key') as InjectionKey<InjectRequest> 
 

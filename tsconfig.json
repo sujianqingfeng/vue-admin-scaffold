@@ -15,10 +15,14 @@
     "skipDefaultLibCheck": true,
     "composite": true,
     "rootDir": ".",
+    "baseUrl": "./",
     "paths": {
+      "vue-admin-scaffold/element-plus": ["./packages/element-plus/index.ts"]
     }
   },
   "include": [
+    "docs",
+    "packages"
   ],
   "exclude": [
     "dist",
