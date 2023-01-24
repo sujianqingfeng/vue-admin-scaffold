@@ -45,7 +45,8 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        'vue-admin-scaffold/element-plus': pkgResolve('element-plus/index.ts')
+        'vue-admin-scaffold/element-plus/style.scss': pkgResolve('element-plus/src/style/scaffold.scss'),
+        'vue-admin-scaffold/element-plus': pkgResolve('element-plus/index.ts'),
       }
     },
     plugins: [vueJsx()]

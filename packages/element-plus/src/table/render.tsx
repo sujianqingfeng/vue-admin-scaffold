@@ -1,9 +1,6 @@
-import { ElButton, ElLoadingDirective, ElPopconfirm, ElTable, ElTableColumn, TableInstance } from 'element-plus'
+import { ElButton,  ElPopconfirm,  ElTableColumn } from 'element-plus'
 import { isFunction } from 'lodash-es'
-import { useScaffoldRequest, useScaffoldTable } from 'core'
-import type { Custom,  ScaffoldTableActionConfirmTextBt,  ScaffoldTableActionItem,  ScaffoldTableActionText,  ScaffoldTableActionTextBt,  ScaffoldTableCol, ScaffoldTableColWithoutCustom, ScaffoldUiRender } from 'shared/types'
-import { VNode, withDirectives } from 'vue'
-import type { Ref } from 'vue'
+import type { Custom,  ScaffoldTableActionConfirmTextBt,  ScaffoldTableActionItem,  ScaffoldTableActionText,  ScaffoldTableActionTextBt,  ScaffoldTableCol } from 'shared/types'
 import RenderOrSlot from '../render-or-slot'
 
 const getTableActionText = (text: ScaffoldTableActionText, param: any): string => {
@@ -39,18 +36,6 @@ export const createTableActionRender = (param: any) => {
     }
   }
 } 
-
-export const renderTable = (children: JSX.Element[], loading: boolean) => {
-  const scaffoldTable = useScaffoldTable()
-  const tableRef = scaffoldTable.tableRef as Ref<TableInstance> 
-
-  const {  dataSource } = useScaffoldRequest()
-  const vNode = <ElTable ref={tableRef} data={dataSource.value.list}>
-    {children}
-  </ElTable>
-
-  return withDirectives(vNode as VNode, [[ElLoadingDirective, loading]])
-}
 
 export const renderTableColumn = (col: ScaffoldTableCol) => {
   const { render, slot,  ...rest } = col

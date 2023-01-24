@@ -1,6 +1,6 @@
-import { isFunction } from '@sujian/utils'
 import type { Ref } from 'vue'
-import type { FormData, ScaffoldQueryForm } from 'shared/type'
+import type { FormData, ScaffoldQueryForm } from 'shared/types'
+import { isFunction } from 'lodash-es'
 
 type Event = (...rest: any[]) => any
 type WrapperEvent = Record<string, Event>

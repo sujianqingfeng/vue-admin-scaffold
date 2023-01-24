@@ -1,10 +1,10 @@
 import { ElButton, ElIcon, ElInput, ElOption, ElSelect } from 'element-plus'
-import type { ActionProps, FetchList, QueryContext, RequiredScaffoldQueryAction, ScaffoldQueryAddExtraParamsForm, ScaffoldQueryForm, ScaffoldQueryInputForm, ScaffoldQuerySelectForm } from 'shared/types'
+import type { ActionProps, QueryContext, RequiredScaffoldQueryAction, ScaffoldQueryAddExtraParamsForm, ScaffoldQueryForm, ScaffoldQueryInputForm, ScaffoldQuerySelectForm } from 'shared/types'
 import { createDefaultEvent, createWrapperEvent } from '../utils'
 import RenderOrSlot from '../render-or-slot'
 import { ArrowUp } from '@element-plus/icons-vue'
 import { CSSProperties } from 'vue'
-import { useScaffoldQuery, useScaffoldRequest } from 'core'
+import { useScaffoldRequest } from 'core'
 import { useReset } from '../composiables'
 
 const renderQueryInput = (form: ScaffoldQueryInputForm, { formData }: QueryContext) => {

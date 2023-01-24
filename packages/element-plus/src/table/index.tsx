@@ -1,8 +1,9 @@
-import { defineComponent, ref, VNode, watchEffect } from 'vue'
+import { defineComponent,  VNode,  withDirectives } from 'vue'
 import type { ScaffoldTableActionItem, ScaffoldTableCol } from 'shared/types'
 import { isFunction } from 'lodash-es'
 import { useScaffoldQuery, useScaffoldRequest, useScaffoldTable } from 'core'
-import { createTableActionRender, renderTable, renderTableColumn } from './render'
+import { createTableActionRender,  renderTableColumn } from './render'
+import { ElLoadingDirective, ElTable } from 'element-plus'
 
 export default defineComponent({
   
@@ -11,7 +12,7 @@ export default defineComponent({
     const { loading, dataSource } = useScaffoldRequest()
     const { formData } = useScaffoldQuery()
 
-    const columnVNodes = ref<JSX.Element[]>([])
+    // const columnVNodes = ref<JSX.Element[]>([])
 
     const filterCol = (col: ScaffoldTableCol) => {
       const { show } = col
@@ -43,19 +44,27 @@ export default defineComponent({
         .map(createTableActionRender(param))
     }
 
-    watchEffect(() => {
-      columnVNodes.value = renderCols(table.value.cols)
+    return () => {
+
+      const columnVNodes = renderCols(table.value.cols)
       // actions
       if (table.value.action && table.value.action.list && table.value.action.list.length) {
         const { text } = table.value.action
         const createActionRender = (param: any) => renderActions(table.value.action!.list!, param)
         const col = renderTableColumn({ label: text, render: createActionRender })
-        columnVNodes.value.push(col)
+        columnVNodes.push(col)
       }
-    })
 
-    return () => <div class='table-container'>
-      {renderTable(columnVNodes.value, loading.value)}
-    </div>
+      const vNode = <ElTable ref={tableRef} data={dataSource.value.list}>
+        {columnVNodes}
+      </ElTable>
+  
+      return  <div class='table-container'>
+        {
+          withDirectives(vNode as VNode, [[ElLoadingDirective, loading.value]])
+        }
+      </div>
+
+    }  
   }
 })

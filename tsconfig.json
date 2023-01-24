@@ -17,7 +17,8 @@
     "rootDir": ".",
     "baseUrl": "./",
     "paths": {
-      "vue-admin-scaffold/element-plus": ["./packages/element-plus/index.ts"]
+      "vue-admin-scaffold/element-plus": ["./packages/element-plus/index.ts"],
+      "vue-admin-scaffold/element-plus/style.scss": ["./packages/element-plus/src/style/scaffold.scss"]
     }
   },
   "include": [

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Scaffold, defineScaffoldSchema, defineScaffoldConfig } from 'vue-admin-scaffold/element-plus'
+import 'vue-admin-scaffold/element-plus/style.scss'
 
 const schema = defineScaffoldSchema({
   query: {

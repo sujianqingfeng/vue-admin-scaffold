@@ -15,7 +15,7 @@ const matchSize = (width: number, widthMap: FormItemWidthMap) => {
 }
 
 export const useSize = (layout: Ref<RequiredScaffoldQueryLayout>) => {
-  const formRef = ref<HTMLElement|null>(null)
+  const formRef = ref<null | HTMLElement>(null)
   const count = ref()
   const itemWidth = ref(328)
 

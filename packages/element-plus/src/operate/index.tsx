@@ -1,4 +1,4 @@
-import {  defineComponent, ref, watchEffect } from 'vue'
+import {  defineComponent } from 'vue'
 import { createOperateItemRender } from './render'
 import type { OperateContext, ScaffoldOperateItem } from 'shared/types'
 import { useScaffoldOperate, useScaffoldQuery, useScaffoldTable } from 'core'
@@ -27,28 +27,18 @@ export default defineComponent({
 
     const renderOperateItem = createOperateItemRender(createOperateContent)
 
-    const leftNodes  = ref<JSX.Element[]>([])
-    const rightNodes  = ref<JSX.Element[]>([])
+    return () => {
+      const left = operate?.value.left.filter(filterOperate).map(renderOperateItem)
+      const right = operate?.value.right.filter(filterOperate).map(renderOperateItem)
 
-    watchEffect(() => {
-      leftNodes.value = operate!.value.left!
-        .filter(filterOperate)
-        .map(renderOperateItem)
-    })
-
-    watchEffect(() => {
-      rightNodes.value = operate!.value.right!
-        .filter(filterOperate)
-        .map(renderOperateItem)
-    })
-  
-    return () => <div class='operate-container'>
-      <div class="operate-left-container">
-        {leftNodes.value}
+      return <div class='operate-container'>
+        <div class="operate-left-container">
+          {left}
+        </div>
+        <div class="operate-right-container">
+          {right}
+        </div>
       </div>
-      <div class="operate-right-container">
-        {rightNodes.value}
-      </div>
-    </div>
+    }  
   }
 })
