@@ -9,7 +9,6 @@ function pluginDemoBlock(md: MarkdownRenderer) {
     const defaultRender = md.renderer.rules[type]
     
     md.renderer.rules[type] = (tokens, idx, options, env, self) => {
-      console.log('token ', tokens)
       const token = tokens[idx]
       const content = token.content.trim()
 

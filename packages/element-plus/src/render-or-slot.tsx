@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 import type { PropType } from 'vue'
-import type { Custom } from 'types'
+import type { Custom } from 'shared/types'
 import { useScaffoldSlots } from 'core'
 
 export default defineComponent({
@@ -21,15 +21,16 @@ export default defineComponent({
   setup(props) {
     const slots = useScaffoldSlots()
     return () => {
-      
       const { render, slot } = props.option
       const { param } = props
+
       if (render) {
         if (typeof param === 'function') {
           return render(param())
         }
         return render(param) 
       }
+
       const { name } = props
       if (slot) {
         const slotFn = slots[slot]
@@ -38,6 +39,7 @@ export default defineComponent({
         }
         return slotFn(param)
       }
+
       throw new Error(`${name}:render or slot is required`)
     } 
   }

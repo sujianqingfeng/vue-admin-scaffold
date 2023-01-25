@@ -43,33 +43,43 @@ export default defineComponent({
 
     const { renderFormItem } = createFormItemRender({ asyncData, formData })
 
-    const renderCols = () => finallyForms.value.map(form => {
-      const { label, span } = form
-      return <div class='col' style={getColStyle(span!)}>
-        <div class='label'>{label}</div>
-        <div class='form-item'>
-          {renderFormItem(form)}
-        </div>
-      </div>
-    })
+    return () => {
 
-    return () => <div class='scaffold-query-container'>
-      <div class='main-container'>
-        <div ref={formRef} class="forms">
-          <div class="row">
-            {renderCols()}
+      const renderCols = () => finallyForms.value.map(form => {
+        const { label, span } = form
+        return <div class='col' style={getColStyle(span!)}>
+          <div class='label'>{label}</div>
+          <div class='form-item'>
+            {renderFormItem(form)}
           </div>
         </div>
-        <div class="actions">
-          {renderReset(action.value,)}
-          {renderQuery(action.value,)}
+      })
+
+      const more = () => {
+        return <div class="more-container" >
+          <div class='more' onClick={toggle}>
+            {renderMore(isShowAll.value)}
+          </div>
         </div>
-      </div>
-      <div class="more-container">
-        <div class='more' onClick={toggle}>
-          {renderMore(isShowAll.value)}
+      }
+    
+      return <div class='scaffold-query-container'>
+        <div class='main-container'>
+          <div ref={formRef} class="forms">
+            <div class="row">
+              {renderCols()}
+            </div>
+          </div>
+          <div class="actions">
+            {renderReset(action.value,)}
+            {renderQuery(action.value,)}
+          </div>
         </div>
+      
+        {
+          isShowMore.value ? more() : null
+        }
       </div>
-    </div>
+    }
   }
 })
